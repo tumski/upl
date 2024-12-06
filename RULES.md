@@ -98,7 +98,7 @@ Environment Variables
 
 Secrecy: Never commit .env files.
 Documentation: Use .env.example to document required vars.
-Naming: Prefix public environment variables with NEXT_PUBLIC_.
+Naming: Prefix public environment variables with NEXT*PUBLIC*.
 Secure Storage: Store secrets in secure environment variables, never in code.
 
 Git Conventions
@@ -130,7 +130,6 @@ Input Validation: Validate and sanitize all user inputs with Zod and server-side
 No Direct Third-Party Exposure: Keep 3rd-party keys and API endpoints confidential in server-side code only.
 Protect Sensitive Routes: Use authentication and authorization where needed.
 Fraud Prevention: Rely on Stripe’s built-in fraud prevention for payments.
-
 
 IMPORTANT NOTES
 

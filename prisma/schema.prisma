@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+  images    Image[]
+}
+
+model Image {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  originalUrl   String
+  upscaledUrl   String?
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  order         Order?   @relation(fields: [orderId], references: [id])
+  orderId       String?
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  status        String   @default("pending") // pending, processing, fulfilled, cancelled
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  images        Image[]
+  stripeId      String?  // Stripe payment intent ID
+  prodigiId     String?  // Prodigi order ID
+  totalAmount   Float
+  currency      String   @default("EUR")
+  shippingInfo  Json?    // Shipping details as JSON
+} 
