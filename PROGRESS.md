@@ -83,11 +83,6 @@ Checkpoint 3.1: Abstract 3rd Party Integrations
 [x] Implement PLACEHOLDER functions for upscaling, payment session creation, and order submission.
 [x] Created service modules that will be used by tRPC procedures, keeping third-party details hidden from frontend.
 
-Checkpoint 3.2: Environment Variables
-
-[ ] Ensure .env vars for Stripe, Prodigi, Topaz are present and loaded server-side.
-[ ] Add Zod validation for environment variables for safety (optional).
-
 Phase 4: Reusable UI Components & Basic Layout
 
 Checkpoint 4.1: UI Foundations
