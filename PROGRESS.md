@@ -79,9 +79,9 @@ Phase 3: Security & Abstraction of 3rd Parties
 
 Checkpoint 3.1: Abstract 3rd Party Integrations
 
-[ ] Create server-side modules for Topaz (e.g., server/topaz.ts), Stripe (server/payment/stripe.ts), and Prodigi (server/fulfillment/prodigi.ts).
-[ ] Implement PLACEHOLDER (not real implementation yet) functions for upscaling, payment session creation, and order submission.
-[ ] No direct frontend calls—just tRPC procedures that internally use these services.
+[x] Create server-side modules for Topaz (server/api/topaz.ts), Stripe (server/api/payment.ts), and Prodigi (server/api/fulfillment.ts).
+[x] Implement PLACEHOLDER functions for upscaling, payment session creation, and order submission.
+[x] Created service modules that will be used by tRPC procedures, keeping third-party details hidden from frontend.
 
 Checkpoint 3.2: Environment Variables
 
