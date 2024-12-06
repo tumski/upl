@@ -16,7 +16,7 @@ Phase 0: Initial Project Setup
 Checkpoint 0.1: Repo Initialization
 
  [x] Create a new Next.js app (with TypeScript) using pnpm: pnpm create next-app --ts
- [ ] Initialize Git and set up .gitignore.
+ [x] Initialize Git and set up .gitignore.
  [ ] Add ESLint, Prettier, and corresponding configs following RULES.md.
  [ ] Ensure strict TypeScript mode in tsconfig.json.
 
