@@ -58,22 +58,22 @@ Checkpoint 1.3: Verify Fallbacks & Default Locale ✅
 
 Phase 2: Core Infrastructure (API & State Management)
 
-Checkpoint 2.1: tRPC & Backend API Setup
+Checkpoint 2.1: tRPC & Backend API Setup ✅
 
-[ ] Set up server/ directory with a basic tRPC router.
-[ ] Configure createContext and appRouter.
-[ ] Add minimal test queries and mutations to ensure tRPC is working.
+[x] Set up server/ directory with a basic tRPC router.
+[x] Configure createContext and appRouter.
+[x] Add minimal test queries and mutations to ensure tRPC is working.
 
-Checkpoint 2.2: Database Integration (Prisma)
+Checkpoint 2.2: Database Integration (Prisma) ✅
 
-[ ] Define initial Prisma models (e.g., User, Order, UploadedImage).
-[ ] Run pnpm prisma migrate dev to apply migrations.
-[ ] Test a simple tRPC query that reads from the DB.
+[x] Define initial Prisma models (e.g., User, Order, UploadedImage).
+[x] Run pnpm prisma migrate dev to apply migrations.
+[x] Test a simple tRPC query that reads from the DB.
 
-Checkpoint 2.3: React Query Integration
+Checkpoint 2.3: React Query Integration ✅
 
-[ ] Wrap \_app.tsx with QueryClientProvider.
-[ ] Test a simple query hook to fetch something from tRPC, confirm caching works.
+[x] Wrap \_app.tsx with QueryClientProvider.
+[x] Test a simple query hook to fetch something from tRPC, confirm caching works.
 
 Phase 3: Security & Abstraction of 3rd Parties
 
