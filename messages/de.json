@@ -1,0 +1,64 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Startseite",
+      "upload": "Bild hochladen",
+      "orders": "Meine Bestellungen"
+    },
+    "actions": {
+      "upload": "Hochladen",
+      "configure": "Konfigurieren",
+      "checkout": "Zur Kasse",
+      "pay": "Jetzt bezahlen",
+      "cancel": "Abbrechen"
+    },
+    "errors": {
+      "generic": "Etwas ist schiefgelaufen",
+      "upload": "Bild konnte nicht hochgeladen werden",
+      "payment": "Zahlung fehlgeschlagen",
+      "required": "Dieses Feld ist erforderlich"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Verwandeln Sie Ihre Bilder in wunderschöne Drucke",
+      "subtitle": "KI-gestützte Vergrößerung für beeindruckende Wandkunst",
+      "cta": "Druck starten"
+    }
+  },
+  "upload": {
+    "title": "Bild hochladen",
+    "description": "Wählen Sie ein Bild aus, das in einen hochwertigen Druck umgewandelt werden soll",
+    "dropzone": {
+      "text": "Bild hier ablegen oder klicken zum Durchsuchen",
+      "hint": "Akzeptiert JPG, PNG bis 20MB"
+    }
+  },
+  "configure": {
+    "title": "Druck konfigurieren",
+    "size": {
+      "label": "Druckgröße",
+      "small": "Klein (20x30cm)",
+      "medium": "Mittel (30x45cm)",
+      "large": "Groß (50x75cm)"
+    },
+    "material": {
+      "label": "Druckmaterial",
+      "paper": "Premium-Papier",
+      "canvas": "Leinwand",
+      "metal": "Metalldruck"
+    }
+  },
+  "orders": {
+    "title": "Meine Bestellungen",
+    "empty": "Noch keine Bestellungen",
+    "status": {
+      "pending": "Ausstehend",
+      "processing": "In Bearbeitung",
+      "upscaling": "Wird vergrößert",
+      "printing": "Wird gedruckt",
+      "shipped": "Versendet",
+      "delivered": "Geliefert"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Strona główna",
+      "upload": "Wgraj zdjęcie",
+      "orders": "Moje zamówienia"
+    },
+    "actions": {
+      "upload": "Wgraj",
+      "configure": "Konfiguruj",
+      "checkout": "Do kasy",
+      "pay": "Zapłać teraz",
+      "cancel": "Anuluj"
+    },
+    "errors": {
+      "generic": "Coś poszło nie tak",
+      "upload": "Nie udało się wgrać zdjęcia",
+      "payment": "Płatność nie powiodła się",
+      "required": "To pole jest wymagane"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Przekształć swoje zdjęcia w piękne wydruki",
+      "subtitle": "Powiększanie AI dla zachwycającej sztuki ściennej",
+      "cta": "Rozpocznij wydruk"
+    }
+  },
+  "upload": {
+    "title": "Wgraj swoje zdjęcie",
+    "description": "Wybierz zdjęcie do przekształcenia w wysokiej jakości wydruk",
+    "dropzone": {
+      "text": "Upuść zdjęcie tutaj lub kliknij, aby przeglądać",
+      "hint": "Akceptuje JPG, PNG do 20MB"
+    }
+  },
+  "configure": {
+    "title": "Skonfiguruj swój wydruk",
+    "size": {
+      "label": "Rozmiar wydruku",
+      "small": "Mały (20x30cm)",
+      "medium": "Średni (30x45cm)",
+      "large": "Duży (50x75cm)"
+    },
+    "material": {
+      "label": "Materiał wydruku",
+      "paper": "Papier premium",
+      "canvas": "Płótno",
+      "metal": "Wydruk na metalu"
+    }
+  },
+  "orders": {
+    "title": "Moje zamówienia",
+    "empty": "Brak zamówień",
+    "status": {
+      "pending": "Oczekujące",
+      "processing": "W trakcie realizacji",
+      "upscaling": "Powiększanie",
+      "printing": "Drukowanie",
+      "shipped": "Wysłane",
+      "delivered": "Dostarczone"
+    }
+  }
+}

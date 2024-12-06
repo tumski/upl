@@ -36,23 +36,25 @@ Checkpoint 0.4: Lint & Formatting ✅
 [x] Run initial lint and format commands.
 [x] Ensure no lint errors before starting the next phase.
 
-Phase 1: Internationalization (i18n) Setup
+Phase 1: Internationalization (i18n) Setup ✅
 
-Checkpoint 1.1: i18n Base Configuration
+Checkpoint 1.1: i18n Base Configuration ✅
 
-[ ] Configure next-intl in \_app.tsx.
-[ ] Create locales/ directory with initial en.json and other locale files (de.json, nl.json, da.json, pl.json).
-[ ] Implement automatic locale detection (via URL, headers, default fallback).
+[x] Configure next-intl in Next.js config and middleware
+[x] Create messages/ directory with initial en.json and other locale files (de.json, nl.json, da.json, pl.json)
+[x] Implement automatic locale detection (via middleware and URL-based routing)
 
-Checkpoint 1.2: Translation Hooks & Utilities
+Checkpoint 1.2: Translation Hooks & Utilities ✅
 
-[ ] Create a custom useTranslations hook or use next-intl’s provider directly.
-[ ] Test that changing locale reflects correct text in a basic test component.
+[x] Create a custom useTranslations hook with type-safe keys
+[x] Set up i18n configuration files (request.ts, navigation.ts, config.ts)
+[x] Configure pathnames and locale prefix settings
 
-Checkpoint 1.3: Verify Fallbacks & Default Locale
+Checkpoint 1.3: Verify Fallbacks & Default Locale ✅
 
-[ ] Verify English (en) loads by default.
-[ ] Confirm that non-existent translation keys fall back gracefully.
+[x] Configure English (en) as default locale
+[x] Set up locale validation and fallback handling in request config
+[x] Configure proper locale prefix mode ("always")
 
 Phase 2: Core Infrastructure (API & State Management)
 

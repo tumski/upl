@@ -1,0 +1,64 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Home",
+      "upload": "Afbeelding uploaden",
+      "orders": "Mijn bestellingen"
+    },
+    "actions": {
+      "upload": "Uploaden",
+      "configure": "Configureren",
+      "checkout": "Afrekenen",
+      "pay": "Nu betalen",
+      "cancel": "Annuleren"
+    },
+    "errors": {
+      "generic": "Er is iets misgegaan",
+      "upload": "Uploaden van afbeelding mislukt",
+      "payment": "Betaling mislukt",
+      "required": "Dit veld is verplicht"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Transformeer uw afbeeldingen in prachtige prints",
+      "subtitle": "AI-gestuurde opschaling voor schitterende wandkunst",
+      "cta": "Start uw print"
+    }
+  },
+  "upload": {
+    "title": "Upload uw afbeelding",
+    "description": "Kies een afbeelding om te transformeren in een hoogwaardige print",
+    "dropzone": {
+      "text": "Sleep uw afbeelding hier of klik om te bladeren",
+      "hint": "Accepteert JPG, PNG tot 20MB"
+    }
+  },
+  "configure": {
+    "title": "Configureer uw print",
+    "size": {
+      "label": "Printformaat",
+      "small": "Klein (20x30cm)",
+      "medium": "Middel (30x45cm)",
+      "large": "Groot (50x75cm)"
+    },
+    "material": {
+      "label": "Printmateriaal",
+      "paper": "Premium papier",
+      "canvas": "Canvas",
+      "metal": "Metaalprint"
+    }
+  },
+  "orders": {
+    "title": "Mijn bestellingen",
+    "empty": "Nog geen bestellingen",
+    "status": {
+      "pending": "In afwachting",
+      "processing": "In behandeling",
+      "upscaling": "Opschalen",
+      "printing": "Printen",
+      "shipped": "Verzonden",
+      "delivered": "Afgeleverd"
+    }
+  }
+}

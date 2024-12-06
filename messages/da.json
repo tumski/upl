@@ -1,0 +1,64 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Hjem",
+      "upload": "Upload billede",
+      "orders": "Mine ordrer"
+    },
+    "actions": {
+      "upload": "Upload",
+      "configure": "Konfigurer",
+      "checkout": "Til kassen",
+      "pay": "Betal nu",
+      "cancel": "Annuller"
+    },
+    "errors": {
+      "generic": "Noget gik galt",
+      "upload": "Kunne ikke uploade billede",
+      "payment": "Betaling mislykkedes",
+      "required": "Dette felt er påkrævet"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Forvandl dine billeder til smukke prints",
+      "subtitle": "AI-drevet opskalering til imponerende vægkunst",
+      "cta": "Start dit print"
+    }
+  },
+  "upload": {
+    "title": "Upload dit billede",
+    "description": "Vælg et billede at forvandle til et print i høj kvalitet",
+    "dropzone": {
+      "text": "Træk dit billede hertil eller klik for at browse",
+      "hint": "Accepterer JPG, PNG op til 20MB"
+    }
+  },
+  "configure": {
+    "title": "Konfigurer dit print",
+    "size": {
+      "label": "Printstørrelse",
+      "small": "Lille (20x30cm)",
+      "medium": "Medium (30x45cm)",
+      "large": "Stor (50x75cm)"
+    },
+    "material": {
+      "label": "Printmateriale",
+      "paper": "Premium papir",
+      "canvas": "Lærred",
+      "metal": "Metalprint"
+    }
+  },
+  "orders": {
+    "title": "Mine ordrer",
+    "empty": "Ingen ordrer endnu",
+    "status": {
+      "pending": "Afventer",
+      "processing": "Behandler",
+      "upscaling": "Opskalerer",
+      "printing": "Printer",
+      "shipped": "Afsendt",
+      "delivered": "Leveret"
+    }
+  }
+}

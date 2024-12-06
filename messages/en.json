@@ -1,0 +1,64 @@
+{
+  "common": {
+    "navigation": {
+      "home": "Home",
+      "upload": "Upload Image",
+      "orders": "My Orders"
+    },
+    "actions": {
+      "upload": "Upload",
+      "configure": "Configure",
+      "checkout": "Checkout",
+      "pay": "Pay Now",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "generic": "Something went wrong",
+      "upload": "Failed to upload image",
+      "payment": "Payment failed",
+      "required": "This field is required"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Transform Your Images into Beautiful Prints",
+      "subtitle": "AI-powered upscaling for stunning wall art",
+      "cta": "Start Your Print"
+    }
+  },
+  "upload": {
+    "title": "Upload Your Image",
+    "description": "Choose an image to transform into a high-quality print",
+    "dropzone": {
+      "text": "Drop your image here or click to browse",
+      "hint": "Accepts JPG, PNG up to 20MB"
+    }
+  },
+  "configure": {
+    "title": "Configure Your Print",
+    "size": {
+      "label": "Print Size",
+      "small": "Small (20x30cm)",
+      "medium": "Medium (30x45cm)",
+      "large": "Large (50x75cm)"
+    },
+    "material": {
+      "label": "Print Material",
+      "paper": "Premium Paper",
+      "canvas": "Canvas",
+      "metal": "Metal Print"
+    }
+  },
+  "orders": {
+    "title": "My Orders",
+    "empty": "No orders yet",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "upscaling": "Upscaling",
+      "printing": "Printing",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    }
+  }
+}
