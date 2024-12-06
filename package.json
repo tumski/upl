@@ -14,7 +14,8 @@
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "update-rules": "cp RULES.md .cursorrules"
   },
   "dependencies": {
     "@prisma/client": "^6.0.1",
