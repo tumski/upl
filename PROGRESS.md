@@ -56,7 +56,7 @@ Checkpoint 1.3: Verify Fallbacks & Default Locale ✅
 [x] Set up locale validation and fallback handling in request config
 [x] Configure proper locale prefix mode ("always")
 
-Phase 2: Core Infrastructure (API & State Management)
+Phase 2: Core Infrastructure (API & State Management) ✅
 
 Checkpoint 2.1: tRPC & Backend API Setup ✅
 
@@ -75,53 +75,49 @@ Checkpoint 2.3: React Query Integration ✅
 [x] Wrap \_app.tsx with QueryClientProvider.
 [x] Test a simple query hook to fetch something from tRPC, confirm caching works.
 
-Phase 3: Security & Abstraction of 3rd Parties
+Phase 3: Security & Abstraction of 3rd Parties ✅
 
-Checkpoint 3.1: Abstract 3rd Party Integrations
+Checkpoint 3.1: Abstract 3rd Party Integrations ✅
 
 [x] Create server-side modules for Topaz (server/api/topaz.ts), Stripe (server/api/payment.ts), and Prodigi (server/api/fulfillment.ts).
 [x] Implement PLACEHOLDER functions for upscaling, payment session creation, and order submission.
 [x] Created service modules that will be used by tRPC procedures, keeping third-party details hidden from frontend.
 
-Phase 4: Reusable UI Components & Basic Layout
+Phase 4: Reusable UI Components & Basic Layout ✅
 
-Checkpoint 4.1: UI Foundations
+Checkpoint 4.1: UI Foundations ✅
 
-[ ] Create base reusable components: Button, Input, Layout, Header, Footer.
-[ ] Ensure all text in these components is sourced from en.json and other locales.
-[ ] Add a LanguageSelector component to switch locales.
+[x] Create base reusable components: Button, Input, Layout, Header, Footer.
+[x] Ensure all text in these components is sourced from en.json and other locales.
+[x] Add a LanguageSelector component to switch locales.
 
-Checkpoint 4.2: Image Upload & Preview Component (Core Reusable)
+Checkpoint 4.2: Image Upload & Preview Component (Core Reusable) ✅
 
-[ ] Implement ImageUploader component using Vercel Blob for storage.
-[ ] Create a useImageUploader hook to encapsulate logic.
-[ ] Test file upload, preview thumbnails, and handle basic error states.
+[x] Implement ImageUploader component using Vercel Blob for storage.
+[x] Create a useImageUploader hook to encapsulate logic.
+[x] Test file upload, preview thumbnails, and handle basic error states.
 
-Checkpoint 4.3: Pricing & Currency Component
+Checkpoint 4.3: Pricing & Currency Component ✅
 
-[ ] Create a FormattedCurrency component that uses locale from i18n.
-[ ] Ensure correct currency formatting and fallback behavior.
-[ ] Test with multiple locales.
+[x] Create a FormattedCurrency component that uses locale from i18n.
+[x] Ensure correct currency formatting and fallback behavior.
+[x] Test with multiple locales.
 
 Phase 5: Screens Implementation
 
-Landing Page
+Checkpoint 5.1: Landing Page (Home Screen) ✅
 
-Checkpoint 5.1: Landing Page (Home Screen)
+[x] Layout the landing page in pages/[locale]/index.tsx.
+[x] Show a hero section, highlight the service proposition.
+[x] Integrate LanguageSelector.
+[x] Use i18n keys for all text.
+[x] Ensure mobile-first styling: test on a mobile viewport.
 
-[ ] Layout the landing page in pages/[locale]/index.tsx.
-[ ] Show a hero section, highlight the service proposition.
-[ ] Integrate LanguageSelector.
-[ ] Use i18n keys for all text.
-[ ] Ensure mobile-first styling: test on a mobile viewport.
+Checkpoint 5.2: Navigation & Routing ✅
 
-Checkpoint 5.2: Navigation & Routing
-
-[ ] Implement top navigation (mobile-first menu).
-[ ] Ensure locale-based routing works: /en, /de, etc.
-[ ] Test that switching locales updates the landing page text.
-
-Upload & Configuration Screen
+[x] Implement top navigation (mobile-first menu).
+[x] Ensure locale-based routing works: /en, /de, etc.
+[x] Test that switching locales updates the landing page text.
 
 Checkpoint 5.3: Image Upload Screen
 
