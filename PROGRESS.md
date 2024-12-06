@@ -21,7 +21,7 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 ## PHASE 1 - I18N SETUP
 
 [ ] set up next-intl according to documentation
-[ ] proof of concept that i18n works by changing landing page to simple hero header with copy inlanguage files
+[ ] Proof Of Concept that i18n works by replacing default Next.js landing page with landing page with simple hero header with copy inlanguage files
 [ ] incude basic tailwind styling
 [ ] include shadcn by this stage
-[ ] implement Header and LanguageSwitcher compoennts and include it in the landing page
+[ ] only if POC was successful, implement Header and LanguageSwitcher compoennts and include it in the landing page
