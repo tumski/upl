@@ -1,5 +1,23 @@
 Project Rules and Conventions
 
+AI Agent Integration
+
+Usage of AI Agents:
+
+LLMs may be used to generate boilerplate code, documentation, tests, and initial component logic.
+Treat LLM output as a starting point; always review, refactor, and test.
+Maintain human oversight to ensure LLM suggestions comply with project standards, security rules, and localization requirements.
+Data & Privacy with LLMs:
+
+Never provide real API keys, secrets, or user data to the LLM.
+Use placeholder values or mocked data when requesting code generation from LLMs.
+Redact any sensitive information from prompts before sending to LLMs.
+Validation of LLM-Generated Code:
+
+Run linting, formatting, and type-checking on LLM output.
+Write or adjust tests to confirm LLM-generated logic behaves as intended.
+Verify i18n keys and translations referenced by LLM-generated code are correct and consistent.
+
 Package Management
 
 Tooling: Use pnpm for all package management tasks.
