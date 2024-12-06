@@ -13,10 +13,10 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 
 ## PHASE 0 - INITIAL SETUP
 
-[ ] set up environment
-[ ] nextjs
-[ ] git repo
-[ ] set up typescript config, prettier and eslint
+[x] set up environment
+[x] nextjs
+[x] git repo
+[x] set up typescript config, prettier and eslint
 
 ## PHASE 1 - I18N SETUP
 
