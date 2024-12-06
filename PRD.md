@@ -1,0 +1,146 @@
+Upscale Print Labs – Comprehensive Product Requirements Document (PRD)
+
+
+Introduction & Vision
+
+Upscale Print Labs is a print-on-demand service that transforms user-uploaded images into premium wall prints. By leveraging AI upscaling, even low-resolution images can be turned into gallery-quality art. The platform focuses on delivering a localized, mobile-first experience tailored to key European markets (Germany, Netherlands, Denmark, Poland) and ensures a seamless journey from image upload, through secure payment, to hassle-free fulfillment.
+
+Primary Goals:
+
+Provide a frictionless, mobile-first user journey from image upload to final product delivery.
+Ensure top-quality prints by leveraging AI upscaling once format and size are finalized, ideally post-payment to reduce unnecessary costs.
+Offer a localized experience, including language, currency, and legal compliance for European customers.
+Integrate with backend-only APIs for critical features (AI upscaling, fulfillment), keeping third-party details hidden from the frontend layer.
+Unique Value Proposition: Combine cutting-edge AI image enhancement with an automated print-on-demand workflow—all optimized for a mobile-first, social-media-driven audience. Users can effortlessly turn images discovered or showcased on platforms like Instagram and Pinterest into high-quality prints, directly from their phones, without being exposed to the underlying third-party integrations.
+
+Target Audience & Market Focus
+Primary Markets:
+
+Germany
+Netherlands
+Denmark
+Poland
+These markets have robust e-commerce readiness and cultural appreciation for personalized home décor. The platform’s focus on mobile-first design aligns perfectly with Instagram and Pinterest marketing campaigns, meeting users where they spend time, and making it simple to convert inspiration into action.
+
+Core Components
+Frontend (Next.js + TypeScript):
+
+Mobile-First, Responsive UI: Designed from the ground up for mobile devices, ensuring a seamless experience for users coming from social media platforms. Desktop users also enjoy a responsive interface, but the primary design priority is mobile.
+Internationalization (next-intl): Full localization support (language, currency, formatting).
+Backend (Server-Side):
+
+Prisma + PostgreSQL: Secure, type-safe data layer.
+tRPC: Type-safe communication between frontend and backend. The frontend never directly contacts third-party APIs—Topaz (upscaling) and Prodigi (fulfillment) integrations are fully abstracted behind internal server endpoints.
+AI Upscaling (Topaz AI):
+
+Server-Side Integration: Invisible to the frontend; the frontend requests upscaling through a backend endpoint.
+Upscaling Timing: After the user selects the format and ideally post-payment, to minimize unnecessary processing costs.
+Payments (Stripe Checkout):
+
+Server-Only Integration: The frontend triggers a payment session via backend endpoints. The hosting, tax handling, and fraud prevention are managed by Stripe.
+Local Currencies & Automatic Tax Handling: Tailored checkout experiences for European markets.
+Fulfillment (Prodigi):
+
+Backend-Managed Integration: Prodigi is never directly exposed to the frontend. All order placements and status updates are processed through server endpoints.
+State Management (React Query):
+
+Caching & Optimistic Updates: Ensures a responsive, app-like feel on mobile devices.
+Error Handling & Infinite Loading: Better UX even on slower mobile connections.
+Functional Flow
+User Uploads Image (Mobile-First):
+The user visits the site, often from Instagram/Pinterest on a mobile device, and easily uploads an image via a simple UI. The image is stored via Vercel Blob.
+
+Format & Size Selection:
+The user chooses desired print size and type. The chosen options determine the required resolution.
+
+Payment via Stripe Checkout:
+Upon confirming the print specs, the user proceeds to payment. At this stage, no upscaling is performed yet. The backend creates a Stripe session; the user completes payment securely.
+
+AI Upscaling After Payment:
+Once payment succeeds, the backend triggers the Topaz AI upscaling process. This ensures costs are incurred only for paid orders.
+
+Fulfillment via Prodigi:
+Post-upscaling, the backend places the order with Prodigi. The user receives an email receipt and can track the order from their account.
+
+Printing & Shipping:
+Prodigi prints and ships the final product to the customer. The entire interaction with Prodigi remains hidden from the user, who only sees order status updates from the backend endpoints.
+
+User Experience (UX) Requirements
+Mobile-First Orientation:
+The UX and UI must prioritize mobile devices, given marketing focus on Instagram and Pinterest.
+
+Touch-friendly elements (min 44x44px tap targets).
+Readable font sizes, no hover-only interactions.
+Fast-loading and lightweight assets suitable for mobile data networks.
+Localized Experience:
+All UI, pricing, and units tailored to the user’s locale. Language detection and currency formatting managed via next-intl and backend logic.
+
+Intuitive Image Upload & Preview:
+Streamlined upload process. Users see a placeholder or a low-res preview and commit to payment before final upscaling is done.
+
+Seamless Payment & Confirmation:
+Stripe Checkout in the user’s local currency, secure and frictionless. Post-payment confirmation screens guide users seamlessly into order tracking.
+
+Non-functional Requirements
+Performance & Responsiveness:
+Highly optimized for mobile performance. Use React Query caching and Next.js optimizations for speed.
+
+Security & Compliance:
+GDPR compliance for data handling.
+All external services (Topaz, Prodigi) remain abstracted behind server-side logic, never exposing keys or integrations to the client.
+
+Scalability & Reliability:
+Horizontally scalable and capable of handling growing user volumes from social media campaigns.
+Robust testing (unit, integration) and consistent monitoring.
+
+Technical Requirements Summary
+Key Tools & Services:
+
+Frontend: Next.js, TypeScript, Tailwind, shadcn/ui
+Backend: tRPC, Prisma, PostgreSQL, Vercel Blob
+Integrations (Hidden from Frontend): Topaz AI, Stripe, Prodigi
+Internationalization: next-intl
+State Management: React Query
+Conventions & Standards:
+Follow RULES.md for code style, TypeScript strict mode, data validation (Zod), and linting.
+Use pnpm for consistent package management.
+
+Localization & Regional Adjustments
+Languages (Phase 1): English, German, Dutch, Danish, Polish.
+Currency & Pricing: Automatically adjusted based on locale.
+Unit Conversions: Display sizes in centimeters or appropriate local units.
+Legal & Compliance: Regional disclaimers, EU VAT compliance via Stripe.
+Integration Points
+Topaz AI (via Backend): Triggered post-payment to upscale images.
+Stripe (via Backend): Payment sessions initiated and confirmed server-side.
+Prodigi (via Backend): Orders created and fulfilled after upscaling, never exposing Prodigi directly.
+All third-party services are accessed through server endpoints, ensuring the frontend does not reveal these integrations.
+
+Goals & Metrics
+MVP Success Indicators:
+
+Conversion: At least 10% of uploads result in purchases.
+Order Volume: 100+ orders/month in primary markets.
+High Mobile Engagement: Low bounce rates on mobile landing pages.
+Payment Success Rate: >95%.
+KPIs:
+
+Mobile page load time under 2s on average connections.
+Stripe payment authorization and completion metrics.
+Customer satisfaction (feedback and reviews).
+Fulfillment speed and on-time delivery rates from Prodigi.
+Implementation Guidelines
+Backend-Abstraction for 3rd Parties:
+All communication with Topaz and Prodigi happens server-side. The frontend interacts only with internal endpoints.
+
+Upscaling Post-Payment:
+To minimize costs, upscale only after the user has paid and selected a final format. Store the original image first, then process post-transaction.
+
+Adherence to Project Rules:
+Follow RULES.md for package management (pnpm), code style (ESLint, Prettier), and data validation (Zod).
+
+Testing & QA:
+Implement tests for all flows, focusing on the payment-upscaling-fulfillment chain. Validate all third-party interactions with mock endpoints.
+
+Performance & Mobile Optimization:
+Leverage Next.js image optimization, code splitting, and caching strategies. Ensure a flawless mobile-first user experience aligned with marketing channels.

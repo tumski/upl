@@ -1,0 +1,232 @@
+Project Implementation Progress Guide
+This guide outlines a step-by-step process for setting up and implementing the project from initial scaffolding to the final user journey. It includes checkpoints, recommended task order, and priorities to ensure a smooth and consistent development flow.
+
+Key Principles:
+
+Set up core infrastructure (TypeScript, pnpm, ESLint, Prettier) immediately.
+Establish i18n and reusable components before building screens.
+Integrate React Query, tRPC, and authentication early for consistent data handling.
+Develop each screen individually, verifying that i18n and reusable components are in place.
+Abstract all 3rd-party services behind backend APIs from the start.
+Perform frequent testing and incremental integration of external APIs (Stripe, Prodigi, Topaz).
+
+
+Phase 0: Initial Project Setup
+
+Checkpoint 0.1: Repo Initialization
+
+ Create a new Next.js app (with TypeScript) using pnpm: pnpm create next-app --ts
+ Initialize Git and set up .gitignore.
+ Add ESLint, Prettier, and corresponding configs following RULES.md.
+ Ensure strict TypeScript mode in tsconfig.json.
+
+Checkpoint 0.2: Basic Dependencies
+
+ Install core dependencies: pnpm add next-intl react-query @tanstack/react-query @prisma/client prisma zod @trpc/server @trpc/client @trpc/next @vercel/blob stripe tailwindcss shadcn/ui
+ Run npx prisma init and configure schema.prisma.
+ Set up Tailwind and shadcn/ui per their documentation.
+
+Checkpoint 0.3: Project Configuration
+
+ Set up pnpm workspaces if needed.
+ Create .env.example with placeholders for environment variables (e.g., STRIPE_SECRET_KEY, PRODIGI_API_KEY, TOPAZ_API_KEY, DATABASE_URL).
+ Update package.json scripts per RULES.md (lint, type-check, test, build).
+
+Checkpoint 0.4: Lint & Formatting
+
+ Run initial lint and format commands.
+ Ensure no lint errors before starting the next phase.
+
+
+Phase 1: Internationalization (i18n) Setup
+
+Checkpoint 1.1: i18n Base Configuration
+
+ Configure next-intl in _app.tsx.
+ Create locales/ directory with initial en.json and other locale files (de.json, nl.json, da.json, pl.json).
+ Implement automatic locale detection (via URL, headers, default fallback).
+
+Checkpoint 1.2: Translation Hooks & Utilities
+
+ Create a custom useTranslations hook or use next-intl’s provider directly.
+ Test that changing locale reflects correct text in a basic test component.
+
+Checkpoint 1.3: Verify Fallbacks & Default Locale
+
+ Verify English (en) loads by default.
+ Confirm that non-existent translation keys fall back gracefully.
+
+
+Phase 2: Core Infrastructure (API & State Management)
+
+Checkpoint 2.1: tRPC & Backend API Setup
+
+ Set up server/ directory with a basic tRPC router.
+ Configure createContext and appRouter.
+ Add minimal test queries and mutations to ensure tRPC is working.
+
+Checkpoint 2.2: Database Integration (Prisma)
+
+ Define initial Prisma models (e.g., User, Order, UploadedImage).
+ Run pnpm prisma migrate dev to apply migrations.
+ Test a simple tRPC query that reads from the DB.
+
+Checkpoint 2.3: React Query Integration
+
+ Wrap _app.tsx with QueryClientProvider.
+ Test a simple query hook to fetch something from tRPC, confirm caching works.
+
+
+Phase 3: Security & Abstraction of 3rd Parties
+
+Checkpoint 3.1: Abstract 3rd Party Integrations
+
+ Create server-side modules for Topaz (e.g., server/topaz.ts), Stripe (server/payment/stripe.ts), and Prodigi (server/fulfillment/prodigi.ts).
+ Implement placeholder functions for upscaling, payment session creation, and order submission.
+ No direct frontend calls—just tRPC procedures that internally use these services.
+
+Checkpoint 3.2: Environment Variables
+
+ Ensure .env vars for Stripe, Prodigi, Topaz are present and loaded server-side.
+ Add Zod validation for environment variables for safety (optional).
+Phase 4: Reusable UI Components & Basic Layout
+
+Checkpoint 4.1: UI Foundations
+
+ Create base reusable components: Button, Input, Layout, Header, Footer.
+ Ensure all text in these components is sourced from en.json and other locales.
+ Add a LanguageSelector component to switch locales.
+
+Checkpoint 4.2: Image Upload & Preview Component (Core Reusable)
+
+ Implement ImageUploader component using Vercel Blob for storage.
+ Create a useImageUploader hook to encapsulate logic.
+ Test file upload, preview thumbnails, and handle basic error states.
+
+Checkpoint 4.3: Pricing & Currency Component
+
+ Create a FormattedCurrency component that uses locale from i18n.
+ Ensure correct currency formatting and fallback behavior.
+ Test with multiple locales.
+
+
+Phase 5: Screens Implementation
+
+Landing Page
+
+Checkpoint 5.1: Landing Page (Home Screen)
+
+ Layout the landing page in pages/[locale]/index.tsx.
+ Show a hero section, highlight the service proposition.
+ Integrate LanguageSelector.
+ Use i18n keys for all text.
+ Ensure mobile-first styling: test on a mobile viewport.
+
+Checkpoint 5.2: Navigation & Routing
+
+ Implement top navigation (mobile-first menu).
+ Ensure locale-based routing works: /en, /de, etc.
+ Test that switching locales updates the landing page text.
+
+Upload & Configuration Screen
+
+Checkpoint 5.3: Image Upload Screen
+
+ Create pages/[locale]/upload.tsx.
+ Integrate ImageUploader component.
+ On successful upload, store image metadata in DB via tRPC.
+ Display a loading state for slow connections.
+
+Checkpoint 5.4: Print Configuration Screen
+
+ After image upload, navigate to pages/[locale]/configure.tsx.
+ Allow selection of size, material, and preview pricing.
+ Implement a SizeSelector, MaterialSelector component (all text from i18n).
+ Validate user inputs with Zod.
+
+Checkout & Payment Screen
+
+Checkpoint 5.5: Checkout Screen
+
+ pages/[locale]/checkout.tsx triggers Stripe session creation via tRPC.
+ Display final price, item details, and a "Pay Now" button.
+ On click, redirect to Stripe Checkout (hosted page).
+ Test error states (e.g., Stripe API down).
+
+Checkpoint 5.6: Payment Callback & Confirmation
+
+ Implement Stripe webhook listener server-side (pages/api/stripe-webhook.ts).
+ Update order status in DB post-payment success.
+ Redirect user to a confirmation screen pages/[locale]/order-confirmed.tsx.
+ Confirm i18n on confirmation messages.
+
+Post-Payment Upscaling & Fulfillment
+
+Checkpoint 5.7: Post-Payment Image Upscaling
+
+ On order confirmation, trigger backend function to call Topaz for upscaling.
+ Store the upscaled image URL.
+ Display an in-progress state on order-confirmed.tsx until upscaling is done.
+
+Checkpoint 5.8: Fulfillment with Prodigi
+
+ After upscaling, trigger Prodigi order creation via backend.
+ Update order status and store tracking data.
+ Confirm that all operations remain hidden from frontend’s direct knowledge.
+
+Order Tracking & Dashboard
+
+Checkpoint 5.9: Order Tracking Screen
+
+ pages/[locale]/orders.tsx displays user’s order history, using React Query infinite loading.
+ Show order statuses fetched from DB.
+ i18n for date formatting and status messages.
+
+Phase 6: Testing & QA
+
+Checkpoint 6.1: Unit & Integration Tests
+
+ Write unit tests for utility functions, Zod schemas, and React hooks.
+ Integration tests for tRPC endpoints and database operations.
+ Component tests with React Testing Library (focus on key components like ImageUploader).
+
+Checkpoint 6.2: E2E Tests
+
+ Test the full flow: landing → upload → configure → checkout → payment → confirmation → orders page.
+ Mock external APIs (Topaz, Prodigi, Stripe) during E2E tests.
+ Test on mobile viewports and slow network conditions.
+
+
+Phase 7: Performance & Security Review
+
+Checkpoint 7.1: Performance Optimization
+
+ Check bundle size and use Next.js image optimization.
+ Ensure caching is working for tRPC queries.
+ Test and fix any slow-loading screens on mobile.
+
+Checkpoint 7.2: Security & Compliance Check
+
+ Confirm GDPR compliance (no personal data leaks).
+ Validate inputs on all endpoints.
+ Check that environment variables and 3rd-party keys are not exposed to frontend.
+ Enable HTTPS and ensure secure cookies if authentication is implemented.
+
+Phase 8: Final Review & Deployment
+
+Checkpoint 8.1: Final Content & Localization Review
+
+ Verify all text strings are translated and no placeholders remain.
+ Confirm correct currency formatting and units per locale.
+
+Checkpoint 8.2: Production Deployment
+
+ Deploy to Vercel.
+ Test domain routing and locale handling in production environment.
+ Final smoke test of the entire user journey.
+ 
+Checkpoint 8.3: Post-Launch Monitoring
+
+ Set up error tracking (Sentry or similar).
+ Monitor Stripe and Prodigi dashboards.
+ Gather user feedback and plan incremental improvements.
