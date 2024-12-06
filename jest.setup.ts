@@ -1,7 +1,7 @@
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
 
 // Mock next/navigation
-jest.mock("next/navigation", () => ({
+jest.mock('next/navigation', () => ({
   useRouter() {
     return {
       push: jest.fn(),
@@ -11,7 +11,7 @@ jest.mock("next/navigation", () => ({
     };
   },
   usePathname() {
-    return "";
+    return '';
   },
   useSearchParams() {
     return new URLSearchParams();
@@ -19,7 +19,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock next-intl
-jest.mock("next-intl", () => ({
+jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
-  useLocale: () => "en",
+  useLocale: () => 'en',
 }));
