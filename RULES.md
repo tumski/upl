@@ -77,6 +77,14 @@ React Query: Use React Query for server state management and caching.
 Error Handling & Retries: Implement proper error handling and retry logic, especially for flaky network conditions common on mobile.
 Optimistic Updates: Use optimistic updates for a better mobile user experience.
 
+Loading States & Suspense
+
+Client Components: Always wrap data-fetching client components with Suspense boundaries.
+Granular Suspense: Use multiple Suspense boundaries for independent loading states rather than one large boundary.
+Loading UI: Create reusable loading components as fallbacks for Suspense boundaries.
+Nested Components: When multiple async operations exist in a component tree, use nested Suspense boundaries for granular loading states.
+Error Boundaries: Pair Suspense with Error Boundaries for complete error handling.
+
 Internationalization (i18n)
 
 All Text Externalized: Never hardcode user-facing text in components.

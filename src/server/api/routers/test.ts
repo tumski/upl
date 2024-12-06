@@ -9,10 +9,10 @@ export const testRouter = router({
     };
   }),
 
-  userCount: publicProcedure.query(async () => {
-    // Placeholder count for now
+  userCount: publicProcedure.query(async ({ ctx }) => {
+    const count = await ctx.prisma.user.count();
     return {
-      count: 42,
+      count,
     };
   }),
 });
