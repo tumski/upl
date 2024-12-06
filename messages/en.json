@@ -24,6 +24,25 @@
       "title": "Transform Your Images into Beautiful Prints",
       "subtitle": "AI-powered upscaling for stunning wall art",
       "cta": "Start Your Print"
+    },
+    "features": {
+      "ai": {
+        "title": "AI Enhancement",
+        "description": "Our advanced AI technology upscales your images while preserving quality and detail"
+      },
+      "quality": {
+        "title": "Premium Prints",
+        "description": "High-quality materials and professional printing for stunning results"
+      },
+      "easy": {
+        "title": "Simple Process",
+        "description": "Upload, customize, and order in minutes - we handle the rest"
+      }
+    },
+    "pricing": {
+      "title": "Affordable Quality",
+      "description": "Professional-grade prints at competitive prices",
+      "startingAt": "Starting at"
     }
   },
   "upload": {

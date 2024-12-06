@@ -1,11 +1,20 @@
-import { Providers } from './providers';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Toaster } from '@/components/ui/toaster';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+type Props = {
+  children: React.ReactNode;
+  params: { locale: string };
+};
+
+export default function LocaleLayout({ children, params: { locale } }: Props) {
+  unstable_setRequestLocale(locale);
+  const messages = useMessages();
+
   return (
-    <html>
-      <body>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+      <Toaster />
+    </NextIntlClientProvider>
   );
 }
