@@ -11,6 +11,14 @@
     "dragDropDescription": "oder klicken Sie, um eine Datei von Ihrem Gerät auszuwählen",
     "selectFileButton": "Datei auswählen",
     "fileRequirements": "Maximale Dateigröße: 25MB. Unterstützte Formate: JPG, PNG, TIFF",
-    "changeImage": "Foto ändern"
+    "changeImage": "Foto ändern",
+    "uploadingStatus": "Foto wird hochgeladen...",
+    "uploadSuccess": "Foto erfolgreich hochgeladen!",
+    "uploadError": "Fehler beim Hochladen des Fotos",
+    "errors": {
+      "fileType": "Bitte wählen Sie eine JPG-, PNG- oder TIFF-Datei aus",
+      "fileSize": "Die Dateigröße muss kleiner als 25MB sein",
+      "generic": "Es gab einen Fehler mit Ihrer Datei"
+    }
   }
 }

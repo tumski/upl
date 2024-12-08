@@ -31,8 +31,8 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 
 [x] include CTA Button on homepage that redirects user to /upload
 [x] create Upload component that allows image choosing and supports drag & drop on desktop
-[ ] display small image thumbnail when image was selected
-[ ] make sure Upload component allows upload of single image, jpg, png, tiff only, file size limit 25mb.
+[x] display small image thumbnail when image was selected
+[x] make sure Upload component allows upload of single image, jpg, png, tiff only, file size limit 25mb.
 [ ] show spinner when file is uploading and green checkmark over the thumbnail when uploaded
 [ ] show red X if upload was unsuccessful and allow another choice.
 [ ] create endpoint that handles the file, puts in on Vercel Blob
