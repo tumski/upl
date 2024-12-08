@@ -37,6 +37,7 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 [x] show red X if upload was unsuccessful and allow another choice.
 [ ] create endpoint that handles the file, puts in on Vercel Blob
 [ ] endpoint also validates file type and size before handling and returns Blob url if successful
+[ ] connect the tRPC endpoint in ./components/Upload.tsx
 [ ] Blob url is preserved in LocalStorage in session data, its added to a list so all images uploaded by user are remembered
 [ ] when front end receives the image url it redirects to /format
 
