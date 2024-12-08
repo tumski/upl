@@ -43,11 +43,13 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 
 ## PHASE 3 - CHOOSING PRINT FORMAT
 
+Preparing page ./src/app/[locale]/format/page.tsx
+
 [x] user lands on /format with a thumbanil of the uploaded image taken from LocalStorage
-[ ] below the image there is a select where user can choose size of the print from predefined list
-[ ] changing the selection changes the size of the thumbnail
-[ ] below the select user can choose matte/glossy paper (matte by default)
-[ ] below the texture selection user chan change the color of the frame (include also "no frame" option)
-[ ] changing the frame selection changes the border around the thumbnail
-[ ] all choices are preserved in LocalStorage in session data
-[ ] below the form there is a Order CTA that redirects to /order
+[x] below the image there is a select where user can choose size of the print from predefined list
+[x] changing the selection changes the size of the thumbnail
+[x] below the select user can choose matte/glossy paper (matte by default)
+[x] below the texture selection user chan change the color of the frame (include also "no frame" option)
+[x] changing the frame selection changes the border around the thumbnail
+[x] all choices are preserved in LocalStorage in session data
+[x] below the form there is a Order CTA that redirects to /order

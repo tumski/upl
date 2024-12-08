@@ -25,6 +25,45 @@
     "title": "Choose Print Format",
     "previewAlt": "Your uploaded image",
     "formatOptions": "Print Options",
+    "sizeLabel": "Print Size",
+    "sizePlaceholder": "Select a size",
+    "sizes": {
+      "4x6": "4×6 inches (10×15 cm)",
+      "5x7": "5×7 inches (13×18 cm)",
+      "8x10": "8×10 inches (20×25 cm)",
+      "11x14": "11×14 inches (28×36 cm)",
+      "16x20": "16×20 inches (41×51 cm)",
+      "20x30": "20×30 inches (51×76 cm)"
+    },
+    "paperLabel": "Paper Type",
+    "paperTypes": {
+      "matte": "Matte",
+      "glossy": "Glossy"
+    },
+    "paperDescriptions": {
+      "matte": "Non-reflective finish, perfect for art prints and portraits",
+      "glossy": "Vibrant colors with a shiny finish"
+    },
+    "frameLabel": "Frame Color",
+    "framePlaceholder": "Select a frame color",
+    "frames": {
+      "none": "No Frame",
+      "white": "White",
+      "black": "Black",
+      "natural": "Natural Wood",
+      "walnut": "Walnut",
+      "gold": "Gold"
+    },
+    "frameDescriptions": {
+      "none": "Print only, without frame",
+      "white": "Clean, modern white frame",
+      "black": "Classic black frame",
+      "natural": "Light wood finish",
+      "walnut": "Dark wood finish",
+      "gold": "Elegant gold finish"
+    },
+    "orderButton": "Continue to Order",
+    "orderButtonDisabled": "Please select a print size",
     "comingSoon": "Size and paper options coming soon...",
     "changeImage": "Upload Different Image"
   }
