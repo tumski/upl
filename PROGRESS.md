@@ -23,14 +23,14 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 [x] set up next-intl according to documentation
 [x] Proof Of Concept that i18n works by replacing default Next.js landing page with landing page with simple hero header with copy in language files
 [x] review intl-react setup to allow routing with AppRouter according to documenation from intl-react-routing.txt, intl-react-react-routing-navigation.txt, intl-react-react-routing-middleware.txt
-[ ] include basic tailwind styling of home page
+[x] include basic tailwind styling of home page
 [x] include shadcn by this stage
 [x] implement Header and LanguageSwitcher using shadcn components and include it in the landing page
 
 ## PHASE 2 - IMAGE UPLOAD
 
-[ ] include CTA Button on homepage that redirects user to /upload
-[ ] create Upload component that allows image choosing and supports drag & drop on desktop
+[x] include CTA Button on homepage that redirects user to /upload
+[x] create Upload component that allows image choosing and supports drag & drop on desktop
 [ ] display small image thumbnail when image was selected
 [ ] make sure Upload component allows upload of single image, jpg, png, tiff only, file size limit 25mb.
 [ ] show spinner when file is uploading and green checkmark over the thumbnail when uploaded

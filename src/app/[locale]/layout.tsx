@@ -1,3 +1,4 @@
+import '@/app/globals.css';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
@@ -13,21 +14,24 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as typeof routing.locales[number])) {
     notFound();
   }
  
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
  
   return (
-    <html lang={locale}>
-      <body>
+    <html lang={locale} suppressHydrationWarning>
+      <body className="min-h-screen bg-background font-sans antialiased">
         <NextIntlClientProvider messages={messages}>
-        <LanguageSwitcher />
-          {children}
+          <div className="relative flex min-h-screen flex-col">
+            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+              <div className="container flex h-14 items-center">
+                <LanguageSwitcher />
+              </div>
+            </header>
+            <div className="flex-1">{children}</div>
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

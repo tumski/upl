@@ -1,6 +1,16 @@
 {
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+    "title": "Transform Your Photos into Beautiful Prints",
+    "description": "Upload your photos and we'll enhance them using AI technology, creating stunning high-quality prints ready to be framed and displayed.",
+    "uploadCTA": "Upload Your Photo"
+  },
+  "Upload": {
+    "title": "Upload Your Photo",
+    "description": "Choose a photo to enhance and print. We accept JPG, PNG, and TIFF files up to 25MB.",
+    "dragDropTitle": "Drag and drop your photo here",
+    "dragDropDescription": "or click to select a file from your device",
+    "selectFileButton": "Select File",
+    "fileRequirements": "Maximum file size: 25MB. Supported formats: JPG, PNG, TIFF",
+    "changeImage": "Change Image"
   }
 }

@@ -1,6 +1,16 @@
 {
   "HomePage": {
-    "title": "Hallo Welt!",
-    "about": "Zur Über-uns-Seite"
+    "title": "Verwandeln Sie Ihre Fotos in wunderschöne Drucke",
+    "description": "Laden Sie Ihre Fotos hoch und wir verbessern sie mit KI-Technologie zu hochwertigen Drucken, die gerahmt und aufgehängt werden können.",
+    "uploadCTA": "Foto hochladen"
+  },
+  "Upload": {
+    "title": "Foto hochladen",
+    "description": "Wählen Sie ein Foto zum Verbessern und Drucken. Wir akzeptieren JPG, PNG und TIFF Dateien bis 25MB.",
+    "dragDropTitle": "Foto hier ablegen",
+    "dragDropDescription": "oder klicken Sie, um eine Datei von Ihrem Gerät auszuwählen",
+    "selectFileButton": "Datei auswählen",
+    "fileRequirements": "Maximale Dateigröße: 25MB. Unterstützte Formate: JPG, PNG, TIFF",
+    "changeImage": "Foto ändern"
   }
 }
