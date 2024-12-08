@@ -55,7 +55,7 @@ export function Upload() {
         // Simulating upload delay for now
         await new Promise(resolve => setTimeout(resolve, 2000));
         setUploadStatus("success");
-      } catch (err) {
+      } catch {
         setUploadStatus("error");
         setError("generic");
         // Clean up preview on error
