@@ -138,3 +138,4 @@ IMPORTANT NOTES
 
 - when dealing with shadcn, use the following in commands: shadcn@latest instead of shadcn-ui@latest
 - before starting any development regarding i18n, ensure to be updated on Next Internationalization Documentation
+- when using tRPC keep in mind that its newest version does not support react-query v5, react-query needs to be keps at v4
