@@ -33,8 +33,8 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 [x] create Upload component that allows image choosing and supports drag & drop on desktop
 [x] display small image thumbnail when image was selected
 [x] make sure Upload component allows upload of single image, jpg, png, tiff only, file size limit 25mb.
-[ ] show spinner when file is uploading and green checkmark over the thumbnail when uploaded
-[ ] show red X if upload was unsuccessful and allow another choice.
+[x] show spinner when file is uploading and green checkmark over the thumbnail when uploaded
+[x] show red X if upload was unsuccessful and allow another choice.
 [ ] create endpoint that handles the file, puts in on Vercel Blob
 [ ] endpoint also validates file type and size before handling and returns Blob url if successful
 [ ] Blob url is preserved in LocalStorage in session data, its added to a list so all images uploaded by user are remembered
