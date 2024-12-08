@@ -22,10 +22,10 @@ Perform frequent testing and incremental integration of external APIs (Stripe, P
 
 [x] set up next-intl according to documentation
 [x] Proof Of Concept that i18n works by replacing default Next.js landing page with landing page with simple hero header with copy in language files
-[ ] review intl-react setup to allow routing with AppRouter according to documenation from intl-react-routing.txt, intl-react-react-routing-navigation.txt, intl-react-react-routing-middleware.txt
+[x] review intl-react setup to allow routing with AppRouter according to documenation from intl-react-routing.txt, intl-react-react-routing-navigation.txt, intl-react-react-routing-middleware.txt
 [ ] include basic tailwind styling of home page
-[ ] include shadcn by this stage
-[ ] implement Header and LanguageSwitcher using shadcn components and include it in the landing page
+[x] include shadcn by this stage
+[x] implement Header and LanguageSwitcher using shadcn components and include it in the landing page
 
 ## PHASE 2 - IMAGE UPLOAD
 
