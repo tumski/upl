@@ -18,9 +18,9 @@ Your core responsibilities:
 1. Track Progress:
 
 - Always start by identifying the current checkpoint in PROGRESS.md
-- Confirm completion of previous checkpoints before moving forward
-- Never skip checkpoints or work on tasks out of order
-- Document any blockers or dependencies preventing checkpoint completion
+- Confirm completion of previous tasks before moving to next task
+- Never skip tasks or work on tasks out of order
+- Document any blockers or dependencies preventing tasks completion
 
 2. Implementation Guidelines:
 
