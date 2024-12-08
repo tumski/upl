@@ -7,15 +7,50 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Upload as UploadIcon, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { trpc } from "@/utils/trpc";
+import { useParams, useRouter } from "next/navigation";
 
 type ErrorType = "fileType" | "fileSize" | "generic" | null;
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
+// Helper function to convert File to base64
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
 export function Upload() {
   const t = useTranslations("Upload");
+  const router = useRouter();
+  const params = useParams();
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<ErrorType>(null);
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>("idle");
+
+  const uploadMutation = trpc.upload.uploadImage.useMutation({
+    onSuccess: ({ url }) => {
+      setUploadStatus("success");
+      // Store the URL in localStorage
+      const uploadedImages = JSON.parse(localStorage.getItem("uploadedImages") || "[]");
+      localStorage.setItem("uploadedImages", JSON.stringify([...uploadedImages, url]));
+      // Redirect to format page after a short delay
+      setTimeout(() => {
+        router.push(`/${params.locale}/format`);
+      }, 1000);
+    },
+    onError: () => {
+      setUploadStatus("error");
+      setError("generic");
+      if (preview) {
+        URL.revokeObjectURL(preview);
+        setPreview(null);
+      }
+    },
+  });
 
   const onDrop = useCallback(async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     // Clear any previous errors and reset status
@@ -51,19 +86,21 @@ export function Upload() {
       setUploadStatus("uploading");
       
       try {
-        // TODO: Implement actual file upload to Vercel Blob
-        // Simulating upload delay for now
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        setUploadStatus("success");
+        // Convert file to base64
+        const base64 = await fileToBase64(file);
+        
+        await uploadMutation.mutateAsync({
+          file: {
+            type: file.type as "image/jpeg" | "image/png" | "image/tiff",
+            size: file.size,
+            base64,
+          },
+        });
       } catch {
-        setUploadStatus("error");
-        setError("generic");
-        // Clean up preview on error
-        URL.revokeObjectURL(objectUrl);
-        setPreview(null);
+        // Error handling is done in mutation callbacks
       }
     }
-  }, [preview]);
+  }, [preview, uploadMutation]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -110,7 +147,7 @@ export function Upload() {
               <AlertCircle className="h-6 w-6 text-destructive" />
             </div>
           )}
-          {uploadStatus !== "uploading" && (
+          {uploadStatus !== "uploading" && uploadStatus !== "success" && (
             <Button
               variant="secondary"
               size="sm"

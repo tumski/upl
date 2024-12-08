@@ -20,5 +20,12 @@
       "fileSize": "Die Dateigröße muss kleiner als 25MB sein",
       "generic": "Es gab einen Fehler mit Ihrer Datei"
     }
+  },
+  "Format": {
+    "title": "Choose Print Format",
+    "previewAlt": "Your uploaded image",
+    "formatOptions": "Print Options",
+    "comingSoon": "Size and paper options coming soon...",
+    "changeImage": "Upload Different Image"
   }
 }

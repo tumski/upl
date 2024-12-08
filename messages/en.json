@@ -7,18 +7,25 @@
   "Upload": {
     "title": "Upload Your Photo",
     "description": "Choose a photo to enhance and print. We accept JPG, PNG, and TIFF files up to 25MB.",
-    "dragDropTitle": "Drag and drop your photo here",
-    "dragDropDescription": "or click to select a file from your device",
+    "dragDropTitle": "Drag and drop your image here",
+    "dragDropDescription": "or click to select a file",
     "selectFileButton": "Select File",
-    "fileRequirements": "Maximum file size: 25MB. Supported formats: JPG, PNG, TIFF",
+    "fileRequirements": "JPEG, PNG, or TIFF up to 25MB",
     "changeImage": "Change Image",
-    "uploadingStatus": "Uploading your photo...",
+    "uploadingStatus": "Uploading...",
     "uploadSuccess": "Photo uploaded successfully!",
     "uploadError": "Failed to upload photo",
     "errors": {
-      "fileType": "Please select a JPG, PNG, or TIFF file",
-      "fileSize": "File size must be less than 25MB",
-      "generic": "There was an error with your file"
+      "fileType": "Invalid file type. Please upload a JPEG, PNG, or TIFF file.",
+      "fileSize": "File is too large. Maximum size is 25MB.",
+      "generic": "Something went wrong. Please try again."
     }
+  },
+  "Format": {
+    "title": "Choose Print Format",
+    "previewAlt": "Your uploaded image",
+    "formatOptions": "Print Options",
+    "comingSoon": "Size and paper options coming soon...",
+    "changeImage": "Upload Different Image"
   }
 }
