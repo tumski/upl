@@ -4,6 +4,7 @@ import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { TRPCProvider } from '@/components/TRPCProvider';
  
 export default async function LocaleLayout({
   children,
@@ -23,16 +24,18 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <NextIntlClientProvider messages={messages}>
-          <div className="relative flex min-h-screen flex-col">
-            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <div className="container flex h-14 items-center">
-                <LanguageSwitcher />
-              </div>
-            </header>
-            <div className="flex-1">{children}</div>
-          </div>
-        </NextIntlClientProvider>
+        <TRPCProvider>
+          <NextIntlClientProvider messages={messages}>
+            <div className="relative flex min-h-screen flex-col">
+              <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="container flex h-14 items-center">
+                  <LanguageSwitcher />
+                </div>
+              </header>
+              <div className="flex-1">{children}</div>
+            </div>
+          </NextIntlClientProvider>
+        </TRPCProvider>
       </body>
     </html>
   );
