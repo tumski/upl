@@ -37,7 +37,7 @@ Internationalization (next-intl): Full localization support (language, currency,
 
 ## Backend (Server-Side):
 
-Prisma + PostgreSQL: Secure, type-safe data layer.
+Drizzle + PostgreSQL: Secure, type-safe data layer with SQL-like query builder.
 tRPC: Type-safe communication between frontend and backend. The frontend never directly contacts third-party APIs—Topaz (upscaling) and Prodigi (fulfillment) integrations are fully abstracted behind internal server endpoints.
 
 ## AI Upscaling (Topaz AI):
@@ -124,7 +124,7 @@ Robust testing (unit, integration) and consistent monitoring.
 ## Key Tools & Services:
 
 Frontend: Next.js, TypeScript, Tailwind, shadcn/ui
-Backend: tRPC, Prisma, PostgreSQL, Vercel Blob
+Backend: tRPC, Drizzle ORM, PostgreSQL, Vercel Blob
 Integrations (Hidden from Frontend): Topaz AI, Stripe, Prodigi
 Internationalization: next-intl
 State Management: React Query

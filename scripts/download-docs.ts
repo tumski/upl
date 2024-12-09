@@ -18,12 +18,13 @@ const docSources: Record<string, DocSource> = {
   topaz: {
     urls: ["https://developer.topazlabs.com/"],
   },
-  stripe: {
-    urls: [
-      "https://docs.stripe.com/api",
-      "https://docs.stripe.com/payments/checkout/how-checkout-works",
-    ],
-  },
+  // stripe times out, probably secured for scraping
+  // stripe: {
+  //   urls: [
+  //     "https://docs.stripe.com/payments/checkout/how-checkout-works",
+  //     "https://docs.stripe.com/api",
+  //   ],
+  // },
   // TODO: handle navigation better
   // "react-query": {
   //   urls: {

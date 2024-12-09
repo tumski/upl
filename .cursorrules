@@ -37,16 +37,38 @@ Comments: Keep comments concise and meaningful, remove stale comments promptly.
 ## TypeScript and Data Validation
 
 Zod Schemas: Define Zod schemas for all data structures (e.g., request payloads, responses, database models).
-Type Consistency: Match Prisma schema types exactly in Zod schemas.
+Type Consistency: Match Drizzle schema types exactly in Zod schemas.
 Strict Validation: Validate all incoming data before database operations and API responses.
 Optionals & Nullables: Handle optional and nullable fields explicitly; avoid ambiguous types.
 
 ## Database and Models
 
-ORM: Use Prisma for DB operations.
-Modeling: Keep Prisma models and corresponding Zod schemas in sync.
-Enums: Use enums for status and type fields for clarity and type safety.
+ORM: Use Drizzle ORM for DB operations.
+Modeling: Define database schema using Drizzle's schema builder and keep corresponding Zod schemas in sync.
+Enums: Use Drizzle's createEnum for status and type fields for clarity and type safety.
 Validation: Validate all data before insertion or updates to prevent bad data.
+
+## Schema & Migration Management:
+
+Migrations:
+
+- Use drizzle-kit to generate and manage SQL migrations
+- Always commit migration files to version control
+- Name migrations descriptively (e.g., 'add_user_preferences_table')
+- Never modify existing migrations; create new ones instead
+
+Schema Changes:
+
+- Update schema files first, then generate corresponding migrations
+- Keep schema files and migrations in sync with git commits
+- Document breaking schema changes in PR descriptions
+- Include both schema updates and migrations in the same PR
+
+Version Control:
+
+- Track migration version numbers in a dedicated table
+- Include migration rollback instructions where necessary
+- Test migrations (up and down) in development before deployment
 
 ## UI Components
 
