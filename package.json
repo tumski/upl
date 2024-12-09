@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "update-rules": "cp RULES.md .cursorrules"
+    "update-rules": "cp RULES.md .cursorrules",
+    "update-docs": "pnpx tsx scripts/download-docs.ts"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.2",
@@ -38,15 +39,22 @@
     "@types/node": "^20",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/turndown": "^5.0.5",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "playwright": "^1.49.0",
     "postcss": "^8",
     "prettier": "^3.4.2",
+    "puppeteer": "^23.10.1",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.2",
+    "turndown": "^7.2.0",
     "typescript": "^5"
   }
 }
