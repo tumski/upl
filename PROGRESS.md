@@ -53,3 +53,50 @@ Preparing page ./src/app/[locale]/format/page.tsx
 [x] changing the frame selection changes the border around the thumbnail
 [x] all choices are preserved in LocalStorage in session data
 [x] below the form there is a Order CTA that redirects to /order
+[ ] display price below the image and trigger the price calculation on any format change
+
+## PHASE 4 - ORDER CONFIRMATION
+
+[ ] create ./src/app/[locale]/order/page.tsx page that displays the order details and a "Pay Now" button, creates order skeleton in DB and first order item, null customer at this point
+[ ] store uploaded image url of each order item in DB with
+[ ] allow to redirect to /upload to add more order items
+[ ] allow removing items from the order, reflect in DB
+[ ] allow changing the size, material, and frame of the order item with format/[itemId]
+
+## PHASE 5 - CHECKOUT
+
+[ ] on click we create a request to backed
+    [ ] create stripe checkout session
+    [ ] attach stripe checkout session id to skeledon of order in db
+    [ ] redirect to Stripe Checkout (hosted page)
+[ ] handle error states (e.g., Stripe API down), notify admin via email
+[ ] handle failed payment [locale]/order-failed page with a message and retry link, notify admin
+[ ] handle successful payment [locale]/order-confirmed page with a confirmation message
+[ ] create sessionId polling endpoint that checks stripe session status and redirect to [locale]/order/[id] when order is created in DB
+
+
+## PHASE 6 - POST ORDER WEBHOOKS
+
+[ ] implement Stripe checkout webhook listener server-side
+[ ] create customer in DB from Stripe payload
+[ ] create order in DB from Stripe payload, including customer uploaded image
+[ ] send confirmation email to customer
+[ ] set up Topaz service for image upscaling
+[ ] trigger Topaz Upscaling async, separately on all order items
+[ ] set up webhook listener for Topaz to update image status when upscaling is done, download the upscaled image, save it to Vercel Blob and save the URL in DB
+[ ] handle failed upscaling with retries, notify admin
+[ ] handle failed image download with retries, notify admin
+[ ] implement Prodigi service for order fulfillment
+[ ] in topaz webhook when image is downloaded, send order to Prodigi to be printed
+[ ] handle failed Prodigi order, notify admin
+[ ] handle successful Prodigi order, change status in DB, notify customer via email
+[ ] create webhook listener for Prodigi to update order status, notify customer via email
+
+## PHASE 7 - ORDER TRACKING
+
+[ ] create [locale]/login to allow user to enter e-mail and get magic link to sign in
+[ ] create [locale]/orders page to display user’s order history
+[ ] create [locale]/order/[id] page to display order details
+[ ] i18n for date formatting and status messages
+[ ] add link in header to [locale]/orders
+[ ] add "Logout" button in header to sign out
