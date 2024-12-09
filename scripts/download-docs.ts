@@ -18,6 +18,9 @@ const docSources: Record<string, DocSource> = {
   topaz: {
     urls: ["https://developer.topazlabs.com/"],
   },
+  drizzle: {
+    urls: ["https://orm.drizzle.team/docs/get-started/neon-new"],
+  },
   // stripe times out, probably secured for scraping
   // stripe: {
   //   urls: [
