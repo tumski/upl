@@ -22,27 +22,27 @@
     }
   },
   "Format": {
-    "title": "Choose Print Format",
-    "previewAlt": "Your uploaded image",
+    "title": "Choose Your Print Format",
+    "previewAlt": "Print Preview",
     "formatOptions": "Print Options",
     "sizeLabel": "Print Size",
-    "sizePlaceholder": "Select a size",
+    "sizePlaceholder": "Select print size",
     "sizes": {
-      "4x6": "4×6 inches (10×15 cm)",
-      "5x7": "5×7 inches (13×18 cm)",
-      "8x10": "8×10 inches (20×25 cm)",
-      "11x14": "11×14 inches (28×36 cm)",
-      "16x20": "16×20 inches (41×51 cm)",
-      "20x30": "20×30 inches (51×76 cm)"
+      "4x6": "4x6 inches (10x15 cm)",
+      "5x7": "5x7 inches (13x18 cm)",
+      "8x10": "8x10 inches (20x25 cm)",
+      "11x14": "11x14 inches (28x35 cm)",
+      "16x20": "16x20 inches (40x50 cm)",
+      "20x30": "20x30 inches (50x75 cm)"
     },
     "paperLabel": "Paper Type",
     "paperTypes": {
-      "matte": "Matte",
-      "glossy": "Glossy"
+      "matte": "Matte Paper",
+      "glossy": "Glossy Paper"
     },
     "paperDescriptions": {
-      "matte": "Non-reflective finish, perfect for art prints and portraits",
-      "glossy": "Vibrant colors with a shiny finish"
+      "matte": "Soft, non-reflective finish",
+      "glossy": "Vibrant, shiny finish"
     },
     "frameLabel": "Frame Color",
     "framePlaceholder": "Select a frame color",
@@ -62,6 +62,8 @@
       "walnut": "Dark wood finish",
       "gold": "Elegant gold finish"
     },
+    "priceLabel": "Total Price",
+    "proceedToOrder": "Proceed to Order",
     "orderButton": "Continue to Order",
     "orderButtonDisabled": "Please select a print size",
     "comingSoon": "Size and paper options coming soon...",

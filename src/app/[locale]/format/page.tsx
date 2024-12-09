@@ -36,6 +36,32 @@ const FRAME_COLORS = {
   gold: '#CFB53B'
 } as const;
 
+// Add price calculation constants
+const PRICE_BASE = 10.00;  // Base price
+const PRICE_MULTIPLIERS = {
+  '4x6': 1.0,
+  '5x7': 1.2,
+  '8x10': 1.5,
+  '11x14': 2.0,
+  '16x20': 2.5,
+  '20x30': 3.0
+} as const;
+
+const PRICE_EXTRAS = {
+  paperType: {
+    'matte': 0,
+    'glossy': 0.5
+  },
+  frameColor: {
+    'none': 0,
+    'white': 5,
+    'black': 5,
+    'natural': 10,
+    'walnut': 15,
+    'gold': 20
+  }
+} as const;
+
 type PrintSize = keyof typeof PRINT_SIZES;
 type PaperType = 'matte' | 'glossy';
 type FrameColor = keyof typeof FRAME_COLORS;
@@ -101,6 +127,18 @@ export default function FormatPage() {
       ...currentSettings,
       frameColor: value
     }));
+  };
+
+  // Add price calculation
+  const calculatePrice = () => {
+    if (!selectedSize) return 0;
+
+    let price = PRICE_BASE;
+    price *= PRICE_MULTIPLIERS[selectedSize];
+    price += PRICE_EXTRAS.paperType[paperType];
+    price += PRICE_EXTRAS.frameColor[frameColor];
+
+    return price.toFixed(2);
   };
 
   if (!imageUrl) {
@@ -219,15 +257,12 @@ export default function FormatPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <Button
-              asChild
-              size="lg"
-              className="w-full"
+            <Button 
+              onClick={() => router.push(`/${params.locale}/order`)} 
               disabled={!selectedSize}
+              className="w-full mt-4"
             >
-              <Link href={`/${params.locale}/order`}>
-                {selectedSize ? t('orderButton') : t('orderButtonDisabled')}
-              </Link>
+              {t('proceedToOrder')}
             </Button>
 
             <Button
@@ -237,6 +272,12 @@ export default function FormatPage() {
             >
               {t('changeImage')}
             </Button>
+          </div>
+
+          <div className="mt-6 text-center">
+            <div className="text-2xl font-bold text-primary">
+              {t('priceLabel')}: €{calculatePrice()}
+            </div>
           </div>
         </div>
       </div>

@@ -22,49 +22,34 @@
     }
   },
   "Format": {
-    "title": "Druckformat wählen",
-    "previewAlt": "Ihr hochgeladenes Bild",
+    "title": "Wählen Sie Ihr Druckformat",
     "formatOptions": "Druckoptionen",
     "sizeLabel": "Druckgröße",
-    "sizePlaceholder": "Größe auswählen",
+    "sizePlaceholder": "Druckgröße auswählen",
     "sizes": {
-      "4x6": "4×6 Zoll (10×15 cm)",
-      "5x7": "5×7 Zoll (13×18 cm)",
-      "8x10": "8×10 Zoll (20×25 cm)",
-      "11x14": "11×14 Zoll (28×36 cm)",
-      "16x20": "16×20 Zoll (41×51 cm)",
-      "20x30": "20×30 Zoll (51×76 cm)"
+      "4x6": "4x6 Zoll (10x15 cm)",
+      "5x7": "5x7 Zoll (13x18 cm)",
+      "8x10": "8x10 Zoll (20x25 cm)",
+      "11x14": "11x14 Zoll (28x35 cm)",
+      "16x20": "16x20 Zoll (40x50 cm)",
+      "20x30": "20x30 Zoll (50x75 cm)"
     },
-    "paperLabel": "Papiertyp",
+    "paperLabel": "Papierart",
     "paperTypes": {
-      "matte": "Matt",
-      "glossy": "Glänzend"
+      "matte": "Mattes Papier",
+      "glossy": "Glanzpapier"
     },
     "paperDescriptions": {
-      "matte": "Nicht reflektierende Oberfläche, ideal für Kunstdrucke und Porträts",
-      "glossy": "Lebendige Farben mit glänzender Oberfläche"
+      "matte": "Weicher, nicht reflektierender Finish",
+      "glossy": "Lebendige, glänzende Oberfläche"
     },
     "frameLabel": "Rahmenfarbe",
-    "framePlaceholder": "Rahmenfarbe auswählen",
-    "frames": {
-      "none": "Ohne Rahmen",
-      "white": "Weiß",
-      "black": "Schwarz",
-      "natural": "Naturholz",
-      "walnut": "Nussbaum",
-      "gold": "Gold"
-    },
-    "frameDescriptions": {
-      "none": "Nur Druck, ohne Rahmen",
-      "white": "Klarer, moderner weißer Rahmen",
-      "black": "Klassischer schwarzer Rahmen",
-      "natural": "Helle Holzoberfläche",
-      "walnut": "Dunkle Holzoberfläche",
-      "gold": "Elegante Goldoberfläche"
-    },
+    "previewAlt": "Druckvorschau",
+    "priceLabel": "Gesamtpreis",
+    "proceedToOrder": "Zur Bestellung",
     "orderButton": "Weiter zur Bestellung",
     "orderButtonDisabled": "Bitte wählen Sie eine Druckgröße",
     "comingSoon": "Größen- und Papieroptionen in Kürze verfügbar...",
-    "changeImage": "Anderes Foto hochladen"
+    "changeImage": "Bild ändern"
   }
 }
