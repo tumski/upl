@@ -44,7 +44,7 @@ CREATE TABLE "orders" (
 	"status" "order_status" DEFAULT 'draft' NOT NULL,
 	"stripe_checkout_session_id" varchar(255),
 	"prodigi_order_id" varchar(255),
-	"total_amount" numeric(10, 2) NOT NULL,
+	"total_amount" integer NOT NULL,
 	"currency" varchar(3) DEFAULT 'EUR' NOT NULL,
 	"shipping_address" text,
 	"tracking_number" varchar(255),
