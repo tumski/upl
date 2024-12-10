@@ -72,13 +72,13 @@ Preparing page ./src/app/[locale]/format/page.tsx
 
 ## PHASE 5 - CHECKOUT
 
-- [ ] on click we create a request to backed
-  - [ ] create stripe checkout session
-  - [ ] attach stripe checkout session id to skeledon of order in db
-  - [ ] redirect to Stripe Checkout (hosted page)
-- [ ] handle error states (e.g., Stripe API down), notify admin via email
-- [ ] handle failed payment [locale]/order-failed page with a message and retry link, notify admin
-- [ ] handle successful payment [locale]/order-confirmed page with a confirmation message
+- [x] on click we create a request to backed
+  - [x] create stripe checkout session
+  - [x] attach stripe checkout session id to skeledon of order in db
+  - [x] redirect to Stripe Checkout (hosted page)
+- [x] handle error states (e.g., Stripe API down), notify admin via email
+- [x] handle failed payment [locale]/order-failed page with a message and retry link, notify admin
+- [x] handle successful payment [locale]/order-confirmed page with a confirmation message
 - [ ] create sessionId polling endpoint that checks stripe session status and redirect to [locale]/order/[id] when order is created in DB
 
 ## PHASE 6 - POST ORDER WEBHOOKS

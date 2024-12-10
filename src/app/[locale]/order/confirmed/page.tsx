@@ -1,11 +1,15 @@
+'use client';
+
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function OrderConfirmedPage() {
   const t = useTranslations("order");
+  const params = useParams<{ locale: string }>();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -29,7 +33,7 @@ export default function OrderConfirmedPage() {
             </ul>
           </div>
           <div className="pt-4">
-            <Link href="/" passHref>
+            <Link href={`/${params.locale}`} passHref>
               <Button variant="default" className="w-full">
                 {t("confirmed.back_home")}
               </Button>

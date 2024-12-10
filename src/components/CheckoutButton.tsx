@@ -26,7 +26,7 @@ export function CheckoutButton({ orderId, customerEmail, disabled }: CheckoutBut
     },
     onError: (error) => {
       console.error("Checkout error:", error);
-      router.push(`/${params.locale}/order-failed`);
+      router.push(`/${params.locale}/order/failed`);
     },
     onSettled: () => {
       setIsLoading(false);
@@ -41,8 +41,8 @@ export function CheckoutButton({ orderId, customerEmail, disabled }: CheckoutBut
     
     createCheckoutSession.mutate({
       orderId,
-      successUrl: `${origin}/${params.locale}/order-confirmed`,
-      cancelUrl: `${origin}/${params.locale}/order`,
+      successUrl: `${origin}/${params.locale}/order/confirmed`,
+      cancelUrl: `${origin}/${params.locale}/order/${orderId}`,
       customerEmail,
     });
   };
