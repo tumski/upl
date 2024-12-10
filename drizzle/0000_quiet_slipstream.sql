@@ -1,9 +1,7 @@
-CREATE SCHEMA IF NOT EXISTS public;
-
 CREATE TYPE "public"."item_status" AS ENUM('pending', 'upscaling', 'upscaling_failed', 'upscaling_complete');--> statement-breakpoint
 CREATE TYPE "public"."order_status" AS ENUM('draft', 'awaiting_payment', 'payment_processing', 'payment_failed', 'paid', 'upscaling', 'upscaling_failed', 'fulfillment_pending', 'fulfilling', 'completed', 'cancelled', 'failed');--> statement-breakpoint
 CREATE TABLE "customers" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"stripe_customer_id" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"first_name" varchar(255),
@@ -21,8 +19,8 @@ CREATE TABLE "customers" (
 );
 --> statement-breakpoint
 CREATE TABLE "items" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"order_id" integer NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"order_id" uuid NOT NULL,
 	"sku" varchar(100) NOT NULL,
 	"prodigi_sku_id" varchar(255),
 	"name" varchar(255) NOT NULL,
@@ -39,8 +37,8 @@ CREATE TABLE "items" (
 );
 --> statement-breakpoint
 CREATE TABLE "orders" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"customer_id" integer,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"customer_id" uuid,
 	"status" "order_status" DEFAULT 'draft' NOT NULL,
 	"stripe_checkout_session_id" varchar(255),
 	"prodigi_order_id" varchar(255),

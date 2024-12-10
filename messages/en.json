@@ -67,6 +67,28 @@
     "orderButton": "Continue to Order",
     "orderButtonDisabled": "Please select a print size",
     "comingSoon": "Size and paper options coming soon...",
-    "changeImage": "Upload Different Image"
+    "changeImage": "Upload Different Image",
+    "total": "Total Price",
+    "processing": "Processing...",
+    "addToOrder": "Add to Order",
+    "updateItem": "Update order"
+  },
+  "Order": {
+    "orderConfirmation": "Order Confirmation",
+    "orderNotFound": "Order not found",
+    "startNewOrder": "Start New Order",
+    "size": "Size",
+    "format": "Paper Type",
+    "price": "Price",
+    "edit": "Edit",
+    "addMoreItems": "Add More Items",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to Checkout",
+    "deleteItem": {
+      "title": "Delete Item",
+      "description": "Are you sure you want to delete this item?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
   }
 }

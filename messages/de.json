@@ -50,6 +50,21 @@
     "orderButton": "Weiter zur Bestellung",
     "orderButtonDisabled": "Bitte wählen Sie eine Druckgröße",
     "comingSoon": "Größen- und Papieroptionen in Kürze verfügbar...",
-    "changeImage": "Bild ändern"
+    "changeImage": "Bild ändern",
+    "total": "Gesamtpreis",
+    "processing": "Verarbeitung...",
+    "addToOrder": "In den Warenkorb"
+  },
+  "Order": {
+    "orderConfirmation": "Bestellbestätigung",
+    "orderNotFound": "Bestellung nicht gefunden",
+    "startNewOrder": "Neue Bestellung starten",
+    "size": "Größe",
+    "format": "Papiertyp",
+    "price": "Preis",
+    "edit": "Bearbeiten",
+    "addMoreItems": "Weitere Artikel hinzufügen",
+    "total": "Gesamt",
+    "proceedToCheckout": "Zur Kasse"
   }
 }

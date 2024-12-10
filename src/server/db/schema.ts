@@ -1,6 +1,6 @@
 import {
   pgTable,
-  serial,
+  uuid,
   varchar,
   timestamp,
   text,
@@ -37,7 +37,7 @@ export const itemStatus = pgEnum("item_status", [
 
 // Customers table
 export const customers = pgTable("customers", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }).notNull().unique(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   firstName: varchar("first_name", { length: 255 }),
@@ -59,8 +59,8 @@ export const customersRelations = relations(customers, ({ many }) => ({
 
 // Orders table
 export const orders = pgTable("orders", {
-  id: serial("id").primaryKey(),
-  customerId: integer("customer_id").references(() => customers.id),
+  id: uuid("id").primaryKey().defaultRandom(),
+  customerId: uuid("customer_id").references(() => customers.id),
   status: orderStatus("status").notNull().default("draft"),
   stripeCheckoutSessionId: varchar("stripe_checkout_session_id", { length: 255 }),
   prodigiOrderId: varchar("prodigi_order_id", { length: 255 }),
@@ -84,8 +84,8 @@ export const ordersRelations = relations(orders, ({ one, many }) => ({
 
 // Items table
 export const items = pgTable("items", {
-  id: serial("id").primaryKey(),
-  orderId: integer("order_id")
+  id: uuid("id").primaryKey().defaultRandom(),
+  orderId: uuid("order_id")
     .notNull()
     .references(() => orders.id),
   sku: varchar("sku", { length: 100 }).notNull(),
