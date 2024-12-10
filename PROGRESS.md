@@ -58,7 +58,7 @@ Preparing page ./src/app/[locale]/format/page.tsx
 ## PHASE 3.8 - DATABASE, ORM, ORDER Endpoints
 
 - [x] set up database with Drizzle ORM
-- [ ] set up tRPC endpoints for orders
+- [x] set up tRPC endpoints for orders
 
 ## PHASE 4 - ORDER CONFIRMATION
 
