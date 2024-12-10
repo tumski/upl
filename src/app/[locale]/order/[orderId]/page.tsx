@@ -19,6 +19,7 @@ import { trpc } from "@/utils/trpc";
 import { useState } from "react";
 import Image from "next/image";
 import { Loader2, Plus, Trash2 } from "lucide-react";
+import { CheckoutButton } from "@/components/CheckoutButton";
 
 interface OrderItem {
   id: number;
@@ -39,7 +40,7 @@ interface Order {
 }
 
 export default function OrderPage() {
-  const t = useTranslations("Order");
+  const t = useTranslations("order");
   const router = useRouter();
   const params = useParams<{ locale: string; orderId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -109,9 +110,16 @@ export default function OrderPage() {
     );
   }
 
+  const formatPrice = (amount: number) => {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: order.currency,
+    }).format(amount / 100);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">{t("orderConfirmation")}</h1>
+      <h1 className="text-2xl font-bold mb-6">{t("summary.title")}</h1>
       
       <div className="space-y-6">
         {order.items?.map((item) => (
@@ -131,7 +139,8 @@ export default function OrderPage() {
               <div className="space-y-2">
                 <p>{t("size")}: {item.size}</p>
                 <p>{t("format")}: {item.format}</p>
-                <p>{t("price")}: {(Number(item.price) / 100).toFixed(2)} {order.currency}</p>
+                <p>{t("price")}: {formatPrice(Number(item.price))}</p>
+                <p>{t("summary.quantity", { count: item.amount })}</p>
               </div>
             </CardContent>
             <CardFooter className="flex justify-end space-x-2">
@@ -187,23 +196,20 @@ export default function OrderPage() {
           className="flex items-center"
         >
           <Plus className="mr-2 h-4 w-4" />
-          {t("addMoreItems")}
+          {t("summary.add_more")}
         </Button>
 
         <div className="flex justify-between items-center p-4 bg-muted rounded-lg">
-          <span className="font-semibold">{t("total")}</span>
+          <span className="font-semibold">{t("summary.total")}</span>
           <span className="text-xl font-bold">
-            {(Number(order.totalAmount) / 100).toFixed(2)} {order.currency}
+            {formatPrice(Number(order.totalAmount))}
           </span>
         </div>
 
-        <Button
-          size="lg"
-          className="w-full"
-          onClick={() => router.push(`/${params.locale}/checkout`)}
-        >
-          {t("proceedToCheckout")}
-        </Button>
+        <CheckoutButton
+          orderId={order.id}
+          disabled={order.status !== "draft"}
+        />
       </div>
     </div>
   );

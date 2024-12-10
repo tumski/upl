@@ -3,6 +3,7 @@ import { db } from "@/server/db";
 import { orders, items, customers } from "@/server/db/schema";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
+import { createCheckoutSession, stripeLineItemSchema } from "@/utils/stripe";
 
 // Input validation schemas
 const createOrderSchema = z.object({
@@ -175,6 +176,7 @@ export const ordersRouter = router({
         price: input.price,
         amount: input.amount,
         status: "pending",
+        sku: input.sku,
       })
       .returning();
     return item[0];
@@ -249,11 +251,11 @@ export const ordersRouter = router({
       throw new Error("Order not found");
     }
 
-    // Create the item
+    // Then create the item
     const [item] = await db
       .insert(items)
       .values({
-        orderId: input.orderId,
+        orderId: order.id,
         name: input.item.name,
         originalImageUrl: input.item.originalImageUrl,
         size: input.item.size,
@@ -265,7 +267,7 @@ export const ordersRouter = router({
       })
       .returning();
 
-    return { order, item };
+    return item;
   }),
 
   // Delete item
@@ -273,4 +275,102 @@ export const ordersRouter = router({
     const [deletedItem] = await db.delete(items).where(eq(items.id, input.id)).returning();
     return deletedItem;
   }),
+
+  // Create Stripe checkout session for order
+  createCheckoutSession: publicProcedure
+    .input(
+      z.object({
+        orderId: z.string().uuid(),
+        successUrl: z.string().url(),
+        cancelUrl: z.string().url(),
+        customerEmail: z.string().email().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      // Get order with items
+      const order = await db.query.orders.findFirst({
+        where: eq(orders.id, input.orderId),
+        with: {
+          items: true,
+        },
+      });
+
+      if (!order) {
+        throw new Error("Order not found");
+      }
+
+      // Convert order items to Stripe line items
+      const lineItems = order.items.map(item => ({
+        price_data: {
+          currency: order.currency,
+          product_data: {
+            name: item.name,
+            description: `${item.size} - ${item.format}`,
+            images: [item.originalImageUrl],
+          },
+          unit_amount: parseInt(item.price, 10),
+        },
+        quantity: item.amount,
+      }));
+
+      // Validate line items
+      lineItems.forEach(item => {
+        const result = stripeLineItemSchema.safeParse(item);
+        if (!result.success) {
+          throw new Error(`Invalid line item: ${result.error.message}`);
+        }
+      });
+
+      // Create Stripe checkout session
+      const { success, session, error } = await createCheckoutSession({
+        lineItems,
+        successUrl: input.successUrl,
+        cancelUrl: input.cancelUrl,
+        customerEmail: input.customerEmail,
+        metadata: {
+          orderId: order.id,
+        },
+      });
+
+      if (!success || !session) {
+        throw new Error(`Failed to create checkout session: ${error}`);
+      }
+
+      // Update order with Stripe session ID and status
+      await db
+        .update(orders)
+        .set({
+          stripeCheckoutSessionId: session.id,
+          status: "awaiting_payment",
+          updatedAt: new Date(),
+        })
+        .where(eq(orders.id, order.id));
+
+      return {
+        checkoutUrl: session.url,
+        sessionId: session.id,
+      };
+    }),
+
+  // Check Stripe session status
+  checkSessionStatus: publicProcedure
+    .input(
+      z.object({
+        sessionId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const order = await db.query.orders.findFirst({
+        where: eq(orders.stripeCheckoutSessionId, input.sessionId),
+      });
+
+      if (!order) {
+        throw new Error("Order not found for session");
+      }
+
+      return {
+        status: order.status,
+        orderId: order.id,
+      };
+    }),
 });
