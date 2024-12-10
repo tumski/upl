@@ -57,19 +57,6 @@ Migrations:
 - Name migrations descriptively (e.g., 'add_user_preferences_table')
 - Never modify existing migrations; create new ones instead
 
-Schema Changes:
-
-- Update schema files first, then generate corresponding migrations
-- Keep schema files and migrations in sync with git commits
-- Document breaking schema changes in PR descriptions
-- Include both schema updates and migrations in the same PR
-
-Version Control:
-
-- Track migration version numbers in a dedicated table
-- Include migration rollback instructions where necessary
-- Test migrations (up and down) in development before deployment
-
 ## UI Components
 
 Library & Styles: Use shadcn and Tailwind CSS.
@@ -116,19 +103,40 @@ Validation: Validate all inputs/outputs with Zod.
 Error Handling: Implement clear error responses and handle them gracefully in the frontend.
 Security: Use proper input sanitization, rate limiting, and OWASP guidelines.
 
+## Working with Existing Infrastructure
+
+Database Schema:
+
+- Adhere to the existing schema defined in `schema.ts`
+- Do not modify schema unless explicitly required and confirmed
+- When adding new features, first attempt to utilize existing tables and relationships
+- Any schema changes must be thoroughly documented and reviewed
+
+API Endpoints:
+
+- Leverage existing tRPC endpoints defined in `_app.ts` before creating new ones
+- Follow established patterns when creating new endpoints
+- Reuse existing router structures and middleware where applicable
+- Maintain consistency with existing error handling patterns
+
+Database Connection:
+
+- Use the established database connection from `db/index.ts`
+- Maintain the existing Drizzle ORM setup and configuration
+- Follow existing patterns for database queries and transactions
+- Ensure proper error handling and connection management
+
+Frontend Integration:
+
+- Use the existing tRPC client setup from `utils/trpc.ts`
+- Leverage React Query patterns already established
+- Maintain consistent data fetching and caching strategies
+- Follow existing patterns for error handling and loading states
+
 ## Environment Variables
 
-Secrecy: Never commit .env files.
 Documentation: Use .env.example to document required vars.
 Naming: Prefix public environment variables with NEXT*PUBLIC*.
-Secure Storage: Store secrets in secure environment variables, never in code.
-
-## Git Conventions
-
-Commit Messages: Use conventional commits (e.g., feat:, fix:, chore:).
-Branching: Use feature/, bugfix/, hotfix/ prefixes for branches.
-Merging: Squash commits when merging PRs.
-Documentation: Document any new translation keys or environment variables in PR descriptions.
 
 ## Performance
 
@@ -139,22 +147,8 @@ Monitoring: Keep an eye on bundle size and use analytics to monitor performance.
 
 ## Security
 
-GDPR Compliance: Handle personal data according to EU GDPR rules.
 Input Validation: Validate and sanitize all user inputs with Zod and server-side logic.
 No Direct Third-Party Exposure: Keep 3rd-party keys and API endpoints confidential in server-side code only.
-Protect Sensitive Routes: Use authentication and authorization where needed.
-Fraud Prevention: Rely on Stripe’s built-in fraud prevention for payments.
-
-## Monitoring & Logging
-
-- Use structured logging
-- Define log levels
-  - INFO - include logs of each step with significant importance (like "Image uploaded to BE", "Image saved to Vercel Blob")
-  - DEBUG
-  - WARNING
-  - ERROR
-- Configure proper monitoring tools
-- Set up alerting
 
 IMPORTANT NOTES
 
