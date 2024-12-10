@@ -62,13 +62,13 @@ Preparing page ./src/app/[locale]/format/page.tsx
 
 ## PHASE 4 - ORDER CONFIRMATION
 
-- [ ] create ./src/app/[locale]/order/page.tsx page
-  - [ ] create order in DB (with null customer at this point) and initial order item
-  - [ ] make sure to store uploaded image url of each order item in DB with item
-- [ ] display order details with all items on the page
-- [ ] allow removing items from the order, reflect in DB
-- [ ] allow edit: changing the size, material, and frame of the order item with format/[itemId]
-- [ ] allow to redirect to /upload to add more order items
+- [x] create ./src/app/[locale]/order/page.tsx page
+  - [x] create order in DB (with null customer at this point) and initial order item
+  - [x] make sure to store uploaded image url of each order item in DB with item
+- [x] display order details with all items on the page
+- [x] allow removing items from the order, reflect in DB
+- [x] allow edit: changing the size, material, and frame of the order item with format/[itemId]
+- [x] allow to redirect to /upload to add more order items
 
 ## PHASE 5 - CHECKOUT
 
