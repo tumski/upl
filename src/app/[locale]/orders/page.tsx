@@ -50,8 +50,8 @@ export default function OrdersPage() {
     );
   }
 
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString(undefined, {
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -67,7 +67,7 @@ export default function OrdersPage() {
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle className="text-lg">
-                  {t('orderDate')}: {formatDate(order.createdAt)}
+                  {t('orderDate')}: {formatDate(new Date(order.createdAt))}
                 </CardTitle>
                 <span className="text-sm px-2 py-1 rounded-full bg-muted">
                   {t(`status.${order.status}`)}
