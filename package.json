@@ -9,7 +9,8 @@
     "lint": "next lint",
     "stripe-webhook": "stripe listen --forward-to http://localhost:3000/api/webhooks/stripe",
     "update-rules": "cp RULES.md .cursorrules && cp RULES.md .windsurfrules",
-    "update-docs": "pnpx tsx scripts/download-docs.ts"
+    "update-docs": "pnpx tsx scripts/download-docs.ts",
+    "check-topaz": "NODE_ENV=development tsx scripts/check-topaz-status.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
@@ -51,6 +52,7 @@
     "@typescript-eslint/parser": "^8.17.0",
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7",
     "drizzle-kit": "^0.30.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",

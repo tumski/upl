@@ -118,6 +118,9 @@ devDependencies:
   cheerio:
     specifier: ^1.0.0
     version: 1.0.0
+  dotenv:
+    specifier: ^16.4.7
+    version: 16.4.7
   drizzle-kit:
     specifier: ^0.30.0
     version: 0.30.0
@@ -3292,6 +3295,11 @@ packages:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
+
+  /dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+    dev: true
 
   /drizzle-kit@0.30.0:
     resolution: {integrity: sha512-zAf0qg/BX2lV/Xip4igXrtbDv+Ub8S39U6qSOEGNvqcHrnmaQjS4mkkFZOUsgXRbuH56QUeWZxfnLHefrKCV5g==}
