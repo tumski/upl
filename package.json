@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "stripe-webhook": "stripe listen --forward-to http://localhost:3000/api/webhooks/stripe",
-    "update-rules": "cp RULES.md .cursorrules",
+    "update-rules": "cp RULES.md .cursorrules && cp RULES.md .windsurfrules",
     "update-docs": "pnpx tsx scripts/download-docs.ts"
   },
   "dependencies": {

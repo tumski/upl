@@ -77,9 +77,9 @@ Preparing page ./src/app/[locale]/format/page.tsx
   - [x] attach stripe checkout session id to skeledon of order in db
   - [x] redirect to Stripe Checkout (hosted page)
 - [x] handle error states (e.g., Stripe API down), notify admin via email
-- [x] handle failed payment [locale]/order-failed page with a message and retry link, notify admin
-- [x] handle successful payment [locale]/order-confirmed page with a confirmation message
-- [ ] create sessionId polling endpoint that checks stripe session status and redirect to [locale]/order/[id] when order is created in DB
+- [x] handle failed payment [locale]/order/failed page with a message and retry link, notify admin
+- [x] handle successful payment [locale]/order/confirmed page with a confirmation message
+- [ ] on [locale]/order/confirmed create sessionId polling endpoint that checks order status and redirect to [locale]/order/[id] when all data is saved via webhook (we have customer and order in DB)
 
 ## PHASE 6 - POST ORDER WEBHOOKS
 
