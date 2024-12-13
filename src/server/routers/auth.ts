@@ -1,4 +1,4 @@
-import { router, publicProcedure } from "@/server/trpc";
+import { router, publicProcedure, protectedProcedure } from "@/server/trpc";
 import { db } from "@/server/db";
 import { magicLinks } from "@/server/db/schema";
 import { z } from "zod";
@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { nanoid } from "nanoid";
 import { sendCustomerEmail } from "@/utils/notifications";
+import { sessionSchema } from "@/server/session";
 
 // Constants
 const MAGIC_LINK_EXPIRY = 15 * 60 * 1000; // 15 minutes
@@ -20,6 +21,13 @@ const verifyMagicLinkSchema = z.object({
 });
 
 export const authRouter = router({
+  // Get current session data
+  getSession: publicProcedure
+    .query(({ ctx }) => {
+      console.log('Session in getSession:', ctx.session);
+      return sessionSchema.parse(ctx.session);
+    }),
+
   // Create magic link for email authentication
   createMagicLink: publicProcedure
     .input(createMagicLinkSchema)
@@ -53,6 +61,8 @@ export const authRouter = router({
   verifyMagicLink: publicProcedure
     .input(verifyMagicLinkSchema)
     .mutation(async ({ ctx, input }) => {
+      console.log('Session before verification:', ctx.session);
+      
       const link = await db.query.magicLinks.findFirst({
         where: eq(magicLinks.token, input.token),
       });
@@ -89,7 +99,16 @@ export const authRouter = router({
         email: link.email,
       };
       await ctx.session.save();
+      
+      console.log('Session after verification:', ctx.session);
 
+      return { success: true };
+    }),
+
+  // Logout
+  logout: protectedProcedure
+    .mutation(async ({ ctx }) => {
+      ctx.session.destroy();
       return { success: true };
     }),
 });

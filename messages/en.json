@@ -142,5 +142,9 @@
     "success": "Success",
     "loginSuccessful": "You have been logged in successfully",
     "backToLogin": "Back to Login"
+  },
+  "orders": {
+    "title": "My Orders",
+    "loggedInAs": "Logged in as"
   }
 }
