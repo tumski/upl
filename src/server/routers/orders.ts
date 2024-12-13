@@ -346,6 +346,8 @@ export const ordersRouter = router({
         })
         .where(eq(orders.id, order.id));
 
+      console.log("Checkout session created:", session.id);
+
       return {
         checkoutUrl: session.url,
         sessionId: session.id,

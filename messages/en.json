@@ -104,6 +104,26 @@
     "checkout": {
       "processing": "Processing order...",
       "pay_now": "Pay Now"
+    },
+    "confirmed":{
+      "title": "Order Confirmed",
+      "description": "Your order has been successfully processed.",
+      "next_steps": "Next Steps",
+      "step_upscaling": "1. Upscaling",
+      "step_printing": "2. Printing",
+      "step_shipping": "3. Shipping",
+      "back_home": "Back to Home",
+      "error": {
+        "title": "Order Error",
+        "description": "There was an error processing your order. Please try again.",
+        "try_again": "Try Again"
+      }
+    },
+    "failed": {
+      "title": "Order Failed",
+      "description": "Your order could not be processed. Please try again.",
+      "try_again": "Try Again",
+      "back_home": "Back to Home"
     }
   }
 }

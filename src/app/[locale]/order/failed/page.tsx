@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function OrderFailedPage() {
-  const t = useTranslations("order");
+  const t = useTranslations("Order");
   const params = useParams<{ locale: string }>();
 
   return (

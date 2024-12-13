@@ -79,7 +79,7 @@ Preparing page ./src/app/[locale]/format/page.tsx
 - [x] handle error states (e.g., Stripe API down), notify admin via email
 - [x] handle failed payment [locale]/order/failed page with a message and retry link, notify admin
 - [x] handle successful payment [locale]/order/confirmed page with a confirmation message
-- [ ] on [locale]/order/confirmed create sessionId polling endpoint that checks order status and redirect to [locale]/order/[id] when all data is saved via webhook (we have customer and order in DB)
+- [ ] use checkSessionStatus polling endpoint that checks order status on order/confirmed and redirect to [locale]/order/[id] when all data is saved via webhook (we have customer and order in DB)
 
 ## PHASE 6 - POST ORDER WEBHOOKS
 
@@ -97,6 +97,7 @@ Preparing page ./src/app/[locale]/format/page.tsx
 - [ ] handle failed Prodigi order, notify admin
 - [ ] handle successful Prodigi order, change status in DB, notify customer via email
 - [ ] create webhook listener for Prodigi to update order status, notify customer via email
+- [ ] handle mocked email transport with resend service
 
 ## PHASE 7 - ORDER TRACKING
 

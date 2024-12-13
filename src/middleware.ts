@@ -10,8 +10,8 @@ const intlMiddleware = createMiddleware({
 
 // Export the middleware function
 export default function middleware(request: NextRequest) {
-  // Skip i18n middleware for Stripe webhook route
-  if (request.nextUrl.pathname === "/api/webhooks/stripe") {
+  // Skip i18n middleware for Stripe and Topaz webhook routes
+  if (request.nextUrl.pathname === "/api/webhooks/stripe" || request.nextUrl.pathname === "/api/webhooks/topaz") {
     return NextResponse.next();
   }
 
@@ -19,7 +19,9 @@ export default function middleware(request: NextRequest) {
   return intlMiddleware(request);
 }
 
-// Configure the middleware to match all routes except Stripe webhook
+// Configure the middleware to match all routes except Stripe and Topaz webhooks
 export const config = {
-  matcher: ["/((?!api/webhooks/stripe|_next|.*\\..*).*)"],
+  matcher: [
+    "/((?!api/webhooks/stripe|api/webhooks/topaz|_next|.*\\..*).*)",
+  ],
 };

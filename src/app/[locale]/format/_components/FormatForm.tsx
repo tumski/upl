@@ -357,9 +357,7 @@ export default function FormatForm({
                   {t('processing')}
                 </div>
               ) : mode === 'create' ? (
-                localStorage.getItem("currentOrderId")
-                  ? t('addToOrder')
-                  : t('createOrder')
+                t('orderButton')
               ) : (
                 t('updateItem')
               )}

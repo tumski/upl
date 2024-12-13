@@ -41,7 +41,7 @@ export function CheckoutButton({ orderId, customerEmail, disabled }: CheckoutBut
     
     createCheckoutSession.mutate({
       orderId,
-      successUrl: `${origin}/${params.locale}/order/confirmed`,
+      successUrl: `${origin}/${params.locale}/order/confirmed?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${origin}/${params.locale}/order/${orderId}`,
       customerEmail,
     });
