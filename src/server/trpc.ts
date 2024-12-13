@@ -3,6 +3,7 @@ import superjson from "superjson";
 import { type IronSession, getIronSession } from "iron-session";
 import { type SessionData, sessionOptions } from "./session";
 import { type NextRequest, type NextResponse } from "next/server";
+import { routing } from "@/i18n/routing";
 
 export type Context = {
   session: IronSession<SessionData>;
@@ -24,9 +25,15 @@ export const createContext = async ({
 }): Promise<Context> => {
   if (req && res) {
     const ironSession = session || await getIronSession(req, res, sessionOptions);
+    // Get locale from URL or default to 'en'
+    const urlLocale = req.nextUrl?.pathname?.split('/')[1];
+    const finalLocale = routing.locales.includes(urlLocale as typeof routing.locales[number]) 
+      ? urlLocale 
+      : routing.defaultLocale;
+
     return {
       session: ironSession,
-      locale: locale || req.headers.get('accept-language')?.split(',')[0] || 'en',
+      locale: finalLocale,
       req,
       res,
     };
@@ -34,7 +41,7 @@ export const createContext = async ({
   // Return minimal context for non-api calls
   return {
     session: session || {} as IronSession<SessionData>,
-    locale: locale || 'en',
+    locale: locale || routing.defaultLocale,
   };
 };
 

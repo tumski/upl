@@ -17,14 +17,14 @@ export function VerifyPageClient({
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { data: session } = trpc.auth.getSession.useQuery(undefined, {
+    enabled: isSuccess,
+    refetchInterval: 500, // Poll every 500ms until we get the session
+  });
 
   const verifyMagicLinkMutation = trpc.auth.verifyMagicLink.useMutation({
     onSuccess: () => {
       setIsSuccess(true);
-      // Add a small delay before redirecting to ensure the session is set
-      setTimeout(() => {
-        router.push(`/${locale}/orders`);
-      }, 500);
     },
     onError: (error) => {
       setError(error.message);
@@ -37,10 +37,17 @@ export function VerifyPageClient({
     }
   }, [token]);
 
+  // Redirect only after we confirm the session is set
+  useEffect(() => {
+    if (session?.user) {
+      router.push(`/${locale}/orders`);
+    }
+  }, [session?.user, locale]);
+
   return (
     <div className="container mx-auto max-w-md px-4 py-8 text-center">
       <h1 className="mb-4 text-2xl font-bold">{t("verifyingLink")}</h1>
-      {verifyMagicLinkMutation.isLoading && (
+      {(verifyMagicLinkMutation.isLoading || isSuccess) && (
         <p className="text-gray-600">{t("pleaseWait")}</p>
       )}
       {isSuccess && (

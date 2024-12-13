@@ -1,6 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from "@/server/trpc";
 import { db } from "@/server/db";
-import { magicLinks } from "@/server/db/schema";
+import { magicLinks, customers } from "@/server/db/schema";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
@@ -28,6 +28,13 @@ export const authRouter = router({
       return sessionSchema.parse(ctx.session);
     }),
 
+  // Logout endpoint
+  logout: publicProcedure
+    .mutation(async ({ ctx }) => {
+      ctx.session.destroy();
+      return { success: true };
+    }),
+
   // Create magic link for email authentication
   createMagicLink: publicProcedure
     .input(createMagicLinkSchema)
@@ -41,7 +48,9 @@ export const authRouter = router({
         expiresAt,
       });
 
-      const magicLinkUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${ctx.locale}/login/verify/${token}`;
+      // Use the locale from context, defaulting to 'en' if not set
+      const locale = ctx.locale || 'en';
+      const magicLinkUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/login/verify/${token}`;
       
       await sendCustomerEmail({
         to: input.email,
@@ -94,21 +103,30 @@ export const authRouter = router({
         .set({ usedAt: new Date() })
         .where(eq(magicLinks.token, input.token));
 
+      // Get or create customer
+      let customer = await db.query.customers.findFirst({
+        where: eq(customers.email, link.email),
+      });
+
+      if (!customer) {
+        const [newCustomer] = await db.insert(customers)
+          .values({
+            email: link.email,
+            stripeCustomerId: `temp_${nanoid()}`, // Temporary ID until Stripe customer is created
+          })
+          .returning();
+        customer = newCustomer;
+      }
+
       // Set session data
       ctx.session.user = {
         email: link.email,
+        id: customer.id,
       };
       await ctx.session.save();
-      
+
       console.log('Session after verification:', ctx.session);
 
-      return { success: true };
-    }),
-
-  // Logout
-  logout: protectedProcedure
-    .mutation(async ({ ctx }) => {
-      ctx.session.destroy();
       return { success: true };
     }),
 });

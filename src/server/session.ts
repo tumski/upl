@@ -5,6 +5,7 @@ import { z } from "zod";
 export const sessionSchema = z.object({
   user: z.object({
     email: z.string().email(),
+    id: z.string().uuid(),
   }).optional(),
 });
 

@@ -87,5 +87,33 @@
       "processing": "Bestellung verarbeitet...",
       "pay_now": "Jetzt bezahlen"
     }
+  },
+  "orders": {
+    "title": "Ihre Bestellungen",
+    "noOrders": "Sie haben noch keine Bestellungen.",
+    "startOrder": "Erste Bestellung aufgeben",
+    "orderDate": "Bestelldatum",
+    "total": "Gesamtbetrag",
+    "viewDetails": "Details anzeigen",
+    "status": {
+      "draft": "Entwurf",
+      "awaiting_payment": "Zahlung ausstehend",
+      "payment_processing": "Zahlung wird verarbeitet",
+      "payment_failed": "Zahlung fehlgeschlagen",
+      "paid": "Bezahlt",
+      "upscaling": "Wird hochskaliert",
+      "upscaling_failed": "Hochskalierung fehlgeschlagen",
+      "fulfillment_pending": "Bearbeitung ausstehend",
+      "fulfilling": "In Bearbeitung",
+      "completed": "Abgeschlossen",
+      "cancelled": "Storniert",
+      "failed": "Fehlgeschlagen"
+    }
+  },
+  "Navigation": {
+    "orders": "Bestellungen",
+    "upload": "Hochladen",
+    "login": "Anmelden",
+    "logout": "Abmelden"
   }
 }

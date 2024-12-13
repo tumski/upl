@@ -108,8 +108,8 @@ Preparing page ./src/app/[locale]/format/page.tsx
   - [x] create tRPC endpoint to create magic link
   - [x] send magic link to user in format: [locale]/login/verify/[token]
   - [x] create tRPC endpoint to verify magic link
-- [ ] create [locale]/login to allow user to enter e-mail and get magic link to sign in, display success and error communication in place, no redirects
-- [ ] create [locale]/login/verify/[token] for verifying user with magic link via endpoint and redirect to [locale]/orders if successful
+- [x] create [locale]/login to allow user to enter e-mail and get magic link to sign in, display success and error communication in place, no redirects
+- [x] create [locale]/login/verify/[token] for verifying user with magic link via endpoint and redirect to [locale]/orders if successful
 - [ ] create [locale]/orders page to display user’s order history
 - [ ] link to [locale]/order/[id] page to display order details
 - [ ] add link in header to [locale]/orders if user is authenticated, otherwise add link to /login

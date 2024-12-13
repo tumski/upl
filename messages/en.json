@@ -144,7 +144,32 @@
     "backToLogin": "Back to Login"
   },
   "orders": {
-    "title": "My Orders",
-    "loggedInAs": "Logged in as"
+    "title": "Your Orders",
+    "loggedInAs": "Logged in as",
+    "noOrders": "You don't have any orders yet.",
+    "startOrder": "Start Your First Order",
+    "orderDate": "Order Date",
+    "total": "Total",
+    "viewDetails": "View Details",
+    "status": {
+      "draft": "Draft",
+      "awaiting_payment": "Awaiting Payment",
+      "payment_processing": "Processing Payment",
+      "payment_failed": "Payment Failed",
+      "paid": "Paid",
+      "upscaling": "Upscaling",
+      "upscaling_failed": "Upscaling Failed",
+      "fulfillment_pending": "Pending Fulfillment",
+      "fulfilling": "Fulfilling",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "failed": "Failed"
+    }
+  },
+  "Navigation": {
+    "orders": "Orders",
+    "upload": "Upload",
+    "login": "Login",
+    "logout": "Logout"
   }
 }

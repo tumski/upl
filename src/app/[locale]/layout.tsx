@@ -4,6 +4,7 @@ import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { Navigation } from '@/components/Navigation';
 import { TRPCProvider } from '@/components/TRPCProvider';
  
 export default async function LocaleLayout({
@@ -30,6 +31,7 @@ export default async function LocaleLayout({
               <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="container flex h-14 items-center">
                   <LanguageSwitcher />
+                  <Navigation />
                 </div>
               </header>
               <div className="flex-1">{children}</div>

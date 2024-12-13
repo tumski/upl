@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getIronSession } from "iron-session";
 import { sessionOptions } from "@/server/session";
+import { routing } from "@/i18n/routing";
 
 // Create the internationalization middleware
 const intlMiddleware = createMiddleware({
-  locales: ["en", "de", "nl", "dk", "pl"],
-  defaultLocale: "en",
+  locales: routing.locales,
+  defaultLocale: routing.defaultLocale,
 });
 
 // Protected routes that require authentication
