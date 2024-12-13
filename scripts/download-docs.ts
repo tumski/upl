@@ -8,6 +8,11 @@ type DocSource = {
 };
 
 const docSources: Record<string, DocSource> = {
+  "nextjs": {
+    urls: [
+      "https://nextjs.org/docs/pages/building-your-application/authentication",
+    ],
+  },
   "next-intl": {
     urls: [
       "https://next-intl-docs.vercel.app/docs/getting-started/app-router/with-i18n-routing",
