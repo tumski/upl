@@ -113,3 +113,14 @@ export const itemsRelations = relations(items, ({ one }) => ({
     references: [orders.id],
   }),
 }));
+
+// Magic Links table
+export const magicLinks = pgTable("magic_links", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: varchar("email", { length: 255 }).notNull(),
+  token: varchar("token", { length: 255 }).notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  usedAt: timestamp("used_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

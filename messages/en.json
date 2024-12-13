@@ -125,5 +125,22 @@
       "try_again": "Try Again",
       "back_home": "Back to Home"
     }
+  },
+  "auth": {
+    "emailPlaceholder": "Enter your email address",
+    "sendMagicLink": "Send Magic Link",
+    "sendingLink": "Sending...",
+    "magicLinkSent": "Magic Link Sent",
+    "checkEmail": "Please check your email for the login link",
+    "error": "Error",
+    "invalidEmail": "Please enter a valid email address",
+    "checkYourEmail": "Check your email",
+    "magicLinkSentTo": "We've sent a magic link to {email}",
+    "useAnotherEmail": "Use another email",
+    "verifyingLink": "Verifying your login link",
+    "pleaseWait": "Please wait...",
+    "success": "Success",
+    "loginSuccessful": "You have been logged in successfully",
+    "backToLogin": "Back to Login"
   }
 }
