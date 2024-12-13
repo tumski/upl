@@ -92,7 +92,7 @@ Preparing page ./src/app/[locale]/format/page.tsx
 - [x] set up webhook listener for Topaz to update image status when upscaling is done, download the upscaled image, save it to Vercel Blob and save the URL in DB
 - [x] handle failed upscaling with retries, notify admin
 - [x] handle failed image download with retries, notify admin
-- [ ] implement Prodigi service for order fulfillment
+- [x] implement Prodigi service for order fulfillment
 - [ ] set up proper item SKUs from Pridigi with /format picker
 - [ ] make sure we're storing all customer data from stripe along with shipping address properly
 - [ ] when all images are processed and downloaded, send order to Prodigi to be printed

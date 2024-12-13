@@ -8,7 +8,12 @@ type DocSource = {
 };
 
 const docSources: Record<string, DocSource> = {
-  "nextjs": {
+  prodigi: {
+    urls: [
+      "https://www.prodigi.com/print-api/docs/reference/",
+    ],
+  },
+  nextjs: {
     urls: [
       "https://nextjs.org/docs/pages/building-your-application/authentication",
     ],
