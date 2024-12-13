@@ -65,6 +65,27 @@
     "edit": "Bearbeiten",
     "addMoreItems": "Weitere Artikel hinzufügen",
     "total": "Gesamt",
-    "proceedToCheckout": "Zur Kasse"
+    "proceedToCheckout": "Zur Kasse",
+    "summary": {
+      "title": "Bestellübersicht",
+      "quantity": "{count, plural, =1 {1 Druck} other {# Drucke}}",
+      "total": "Gesamt",
+      "add_more": "Weitere Fotos hinzufügen"
+    },
+    "deleteItem": {
+      "title": "Artikel löschen",
+      "description": "Sind Sie sicher, dass Sie diesen Artikel aus Ihrer Bestellung entfernen möchten?",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen"
+    },
+    "no_order": {
+      "title": "Keine Bestellung gefunden",
+      "description": "Sie haben noch keine Artikel in Ihrer Bestellung. Beginnen Sie mit dem Hochladen eines Fotos.",
+      "start_new": "Foto hochladen"
+    },
+    "checkout": {
+      "processing": "Bestellung verarbeitet...",
+      "pay_now": "Jetzt bezahlen"
+    }
   }
 }

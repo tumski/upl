@@ -13,7 +13,7 @@ interface CheckoutButtonProps {
 }
 
 export function CheckoutButton({ orderId, customerEmail, disabled }: CheckoutButtonProps) {
-  const t = useTranslations("order");
+  const t = useTranslations("Order");
   const router = useRouter();
   const params = useParams<{ locale: string }>();
   const [isLoading, setIsLoading] = useState(false);

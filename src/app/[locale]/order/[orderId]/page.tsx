@@ -1,51 +1,16 @@
-"use client";
+'use client';
 
 import { useTranslations } from "next-intl";
 import { useRouter, useParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Loader2 } from "lucide-react";
 import { trpc } from "@/utils/trpc";
-import { useState } from "react";
-import Image from "next/image";
-import { Loader2, Plus, Trash2 } from "lucide-react";
-import { CheckoutButton } from "@/components/CheckoutButton";
-
-interface OrderItem {
-  id: number;
-  name: string;
-  originalImageUrl: string;
-  size: string;
-  format: string;
-  price: number;
-  amount: number;
-}
-
-interface Order {
-  id: number;
-  totalAmount: number;
-  currency: string;
-  status: string;
-  items: OrderItem[];
-}
+import { OrderSummary, OrderError } from "../_components";
 
 export default function OrderPage() {
   const t = useTranslations("order");
   const router = useRouter();
   const params = useParams<{ locale: string; orderId: string }>();
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
-
+  
   // Get order ID from URL or localStorage
   const orderId = params.orderId || (typeof window !== 'undefined' ? localStorage.getItem("currentOrderId") : null);
   
@@ -68,10 +33,8 @@ export default function OrderPage() {
   });
 
   const handleDeleteItem = async (itemId: string) => {
-    setIsDeleting(true);
     try {
       await deleteItemMutation.mutateAsync({ id: itemId });
-      setItemToDelete(null);
       
       // If this was the last item, redirect to upload
       if (order?.items?.length === 1) {
@@ -82,8 +45,6 @@ export default function OrderPage() {
     } catch (error) {
       console.error("Failed to delete item:", error);
       // TODO: Show error toast
-    } finally {
-      setIsDeleting(false);
     }
   };
 
@@ -104,113 +65,18 @@ export default function OrderPage() {
   if (!order) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-4">{t("orderNotFound")}</h1>
-        <Button onClick={() => router.push(`/${params.locale}/upload`)}>{t("startNewOrder")}</Button>
+        <OrderError />
       </div>
     );
   }
 
-  const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency: order.currency,
-    }).format(amount / 100);
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">{t("summary.title")}</h1>
-      
-      <div className="space-y-6">
-        {order.items?.map((item) => (
-          <Card key={item.id} className="w-full">
-            <CardHeader>
-              <CardTitle className="text-lg">{item.name}</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="relative aspect-square w-full max-w-[200px]">
-                <Image
-                  src={item.originalImageUrl}
-                  alt={item.name}
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
-              <div className="space-y-2">
-                <p>{t("size")}: {item.size}</p>
-                <p>{t("format")}: {item.format}</p>
-                <p>{t("price")}: {formatPrice(Number(item.price))}</p>
-                <p>{t("summary.quantity", { count: item.amount })}</p>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-end space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => router.push(`/${params.locale}/format/${item.id}`)}
-              >
-                {t("edit")}
-              </Button>
-              <AlertDialog open={itemToDelete === item.id} onOpenChange={(open) => !open && setItemToDelete(null)}>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => setItemToDelete(item.id)}
-                    disabled={isDeleting}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>{t("deleteItem.title")}</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      {t("deleteItem.description")}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>{t("deleteItem.cancel")}</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={() => handleDeleteItem(item.id)}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                    >
-                      {isDeleting ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        t("deleteItem.confirm")
-                      )}
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-
-      <div className="mt-8 flex flex-col space-y-4">
-        <Button
-          variant="outline"
-          onClick={() => router.push(`/${params.locale}/upload`)}
-          className="flex items-center"
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          {t("summary.add_more")}
-        </Button>
-
-        <div className="flex justify-between items-center p-4 bg-muted rounded-lg">
-          <span className="font-semibold">{t("summary.total")}</span>
-          <span className="text-xl font-bold">
-            {formatPrice(Number(order.totalAmount))}
-          </span>
-        </div>
-
-        <CheckoutButton
-          orderId={order.id}
-          disabled={order.status !== "draft"}
-        />
-      </div>
+      <OrderSummary 
+        order={order} 
+        onDeleteItem={handleDeleteItem}
+        showActions={true}
+      />
     </div>
   );
-} 
+}
