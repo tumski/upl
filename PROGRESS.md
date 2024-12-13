@@ -83,17 +83,19 @@ Preparing page ./src/app/[locale]/format/page.tsx
 
 ## PHASE 6 - POST ORDER WEBHOOKS
 
-- [ ] implement Stripe checkout webhook listener server-side
-  - [ ] create customer in DB from Stripe payload
-  - [ ] create order in DB from Stripe payload, including customer uploaded image
-  - [ ] send confirmation email to customer
-- [ ] set up Topaz service for image upscaling
-- [ ] trigger Topaz Upscaling async, separately on all order items
-- [ ] set up webhook listener for Topaz to update image status when upscaling is done, download the upscaled image, save it to Vercel Blob and save the URL in DB
-- [ ] handle failed upscaling with retries, notify admin
-- [ ] handle failed image download with retries, notify admin
+- [x] implement Stripe checkout webhook listener server-side
+  - [x] create customer in DB from Stripe payload
+  - [x] create order in DB from Stripe payload, including customer uploaded image
+  - [x] send confirmation email to customer
+- [x] set up Topaz service for image upscaling
+- [x] trigger Topaz Upscaling async, separately on all order items
+- [x] set up webhook listener for Topaz to update image status when upscaling is done, download the upscaled image, save it to Vercel Blob and save the URL in DB
+- [x] handle failed upscaling with retries, notify admin
+- [x] handle failed image download with retries, notify admin
 - [ ] implement Prodigi service for order fulfillment
-- [ ] in topaz webhook when image is downloaded, send order to Prodigi to be printed
+- [ ] set up proper item SKUs from Pridigi with /format picker
+- [ ] make sure we're storing all customer data from stripe along with shipping address properly
+- [ ] when all images are processed and downloaded, send order to Prodigi to be printed
 - [ ] handle failed Prodigi order, notify admin
 - [ ] handle successful Prodigi order, change status in DB, notify customer via email
 - [ ] create webhook listener for Prodigi to update order status, notify customer via email
@@ -103,7 +105,6 @@ Preparing page ./src/app/[locale]/format/page.tsx
 
 - [ ] create [locale]/login to allow user to enter e-mail and get magic link to sign in
 - [ ] create [locale]/orders page to display user’s order history
-- [ ] create [locale]/order/[id] page to display order details
-- [ ] i18n for date formatting and status messages
-- [ ] add link in header to [locale]/orders
-- [ ] add "Logout" button in header to sign out
+- [ ] use [locale]/order/[id] page to display order details
+- [ ] add link in header to [locale]/orders if user is authenticated, login link otherwise
+  - [ ] for authenticated users, add "Logout" button in header to sign out

@@ -5,6 +5,7 @@ import { db } from "@/server/db";
 import { orders, customers, items } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { enhanceImage } from "@/utils/topaz";
+import { sendCustomerEmail } from "@/utils/notifications";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -69,10 +70,46 @@ export async function POST(req: Request) {
           })
           .where(eq(orders.id, orderId));
 
-        // Get all items for this order
+        // Send order confirmation email
         const orderItems = await db.query.items.findMany({
           where: eq(items.orderId, orderId),
         });
+        await sendCustomerEmail({
+          to: customer.email,
+          subject: "Order Confirmation - Upscale Print Labs",
+          text: `Thank you for your order!
+
+Your order #${orderId} has been received and is being processed. We'll start enhancing your images right away.
+
+Order Details:
+${orderItems.map(item => `- ${item.name} (${item.size})`).join('\n')}
+
+Total Amount: ${(session.amount_total || 0) / 100} ${session.currency?.toUpperCase()}
+
+We'll notify you once your images have been enhanced and are ready for printing.
+
+Best regards,
+Upscale Print Labs Team`,
+          html: `<h1>Thank you for your order!</h1>
+<p>Your order #${orderId} has been received and is being processed. We'll start enhancing your images right away.</p>
+
+<h2>Order Details:</h2>
+<ul>
+${orderItems.map(item => `<li>${item.name} (${item.size})</li>`).join('\n')}
+</ul>
+
+<p>Total Amount: ${(session.amount_total || 0) / 100} ${session.currency?.toUpperCase()}</p>
+
+<p>We'll notify you once your images have been enhanced and are ready for printing.</p>
+
+<p>Best regards,<br>
+Upscale Print Labs Team</p>`
+        });
+
+        // Get all items for this order
+        // const orderItems = await db.query.items.findMany({
+        //   where: eq(items.orderId, orderId),
+        // });
 
         // Start upscaling process for each item
         for (const item of orderItems) {

@@ -1,11 +1,12 @@
 import { db } from "@/server/db";
-import { eq } from "drizzle-orm";
-import { items } from "@/server/db/schema";
+import { eq, and, not, inArray } from "drizzle-orm";
+import { items, orders } from "@/server/db/schema";
 import { checkEnhancementStatus, downloadEnhancedImage, getDownloadUrl } from "./topaz";
 import { put } from "@vercel/blob";
-import { sendAdminNotification } from "./notifications";
+import { sendAdminNotification, sendCustomerEmail } from "./notifications";
 
 const MAX_RETRY_ATTEMPTS = 3;
+const MAX_DOWNLOAD_ATTEMPTS = 3;
 
 interface ProcessingSummary {
   itemId: string;
@@ -13,6 +14,7 @@ interface ProcessingSummary {
   error?: string;
   enhancedImageUrl?: string;
   attempts: number;
+  downloadAttempts?: number;
 }
 
 export async function checkTopazStatus(): Promise<ProcessingSummary[]> {
@@ -77,8 +79,8 @@ export async function checkTopazStatus(): Promise<ProcessingSummary[]> {
             });
             
             try {
-              // Download the enhanced image
-              const enhancedImage = await downloadEnhancedImage(downloadResponse.url);
+              // Download the enhanced image with retries
+              const enhancedImage = await downloadWithRetry(downloadResponse.url);
               console.log("- Downloaded enhanced image:", {
                 size: enhancedImage.size,
                 type: enhancedImage.type
@@ -133,11 +135,71 @@ export async function checkTopazStatus(): Promise<ProcessingSummary[]> {
               itemSummary.status = "completed";
               itemSummary.enhancedImageUrl = blobUrl.url;
               console.log("- Database updated");
+
+              // Check if all items in this order are complete
+              const orderItems = await db.query.items.findMany({
+                where: eq(items.orderId, item.orderId),
+              });
+
+              const allComplete = orderItems.every(
+                item => item.status === "upscaling_complete"
+              );
+
+              if (allComplete) {
+                console.log("All items in order are complete, updating order status");
+                
+                // Get order and customer details
+                const order = await db.query.orders.findFirst({
+                  where: eq(orders.id, item.orderId),
+                  with: {
+                    customer: true,
+                  },
+                });
+
+                if (order?.customer?.email) {
+                  console.log("Sending completion notification to customer");
+                  await sendCustomerEmail({
+                    to: order.customer.email,
+                    subject: "Your Images Are Ready - Upscale Print Labs",
+                    text: `Great news! We've finished enhancing your images for order #${order.id}.
+
+Your enhanced images:
+${orderItems.map(item => `- ${item.name} (${item.size})`).join('\n')}
+
+We're now preparing to send your order to our printing partner. You'll receive another notification once your prints are on their way.
+
+Best regards,
+Upscale Print Labs Team`,
+                    html: `<h1>Great news!</h1>
+<p>We've finished enhancing your images for order #${order.id}.</p>
+
+<h2>Your enhanced images:</h2>
+<ul>
+${orderItems.map(item => `<li>${item.name} (${item.size})</li>`).join('\n')}
+</ul>
+
+<p>We're now preparing to send your order to our printing partner. You'll receive another notification once your prints are on their way.</p>
+
+<p>Best regards,<br>
+Upscale Print Labs Team</p>`
+                  });
+                }
+
+                // Update order status
+                await db
+                  .update(orders)
+                  .set({
+                    status: "fulfillment_pending",
+                    updatedAt: new Date(),
+                  })
+                  .where(eq(orders.id, item.orderId));
+              }
             } catch (error) {
               console.error("- Error processing completed image:", error);
               await handleUpscalingFailure(
                 item, 
-                error instanceof Error ? error.message : "Error processing enhanced image"
+                error instanceof Error ? error.message : "Error processing enhanced image",
+                "download"
               );
               itemSummary.status = "failed";
               itemSummary.error = error instanceof Error ? error.message : "Unknown error";
@@ -196,12 +258,41 @@ export async function checkTopazStatus(): Promise<ProcessingSummary[]> {
   return summary;
 }
 
+async function downloadWithRetry(url: string, maxAttempts: number = MAX_DOWNLOAD_ATTEMPTS): Promise<Blob> {
+  let lastError: Error | undefined;
+  
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      console.log(`- Download attempt ${attempt}/${maxAttempts}`);
+      const blob = await downloadEnhancedImage(url);
+      
+      if (blob.size === 0) {
+        throw new Error("Downloaded image has zero size");
+      }
+      
+      return blob;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error("Unknown error");
+      console.error(`- Download attempt ${attempt} failed:`, lastError.message);
+      
+      if (attempt < maxAttempts) {
+        const delay = Math.min(1000 * Math.pow(2, attempt), 10000); // Exponential backoff, max 10s
+        console.log(`- Waiting ${delay}ms before retry...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+  
+  throw lastError || new Error("All download attempts failed");
+}
+
 async function handleUpscalingFailure(
   item: typeof items.$inferSelect,
-  error: string
+  error: string,
+  errorType: "upscaling" | "download" = "upscaling"
 ) {
   const attempts = (item.upscalingAttempts || 0) + 1;
-  console.log(`Handling failure for item ${item.id} (Attempt ${attempts}/${MAX_RETRY_ATTEMPTS})`);
+  console.log(`Handling ${errorType} failure for item ${item.id} (Attempt ${attempts}/${MAX_RETRY_ATTEMPTS})`);
 
   await db
     .update(items)
@@ -209,14 +300,20 @@ async function handleUpscalingFailure(
       status: "upscaling_failed",
       upscalingAttempts: attempts,
       updatedAt: new Date(),
+      error: error,
     })
     .where(eq(items.id, item.id));
 
   if (attempts >= MAX_RETRY_ATTEMPTS) {
     console.log("Max retry attempts reached, notifying admin");
     await sendAdminNotification({
-      subject: "Upscaling Failed - Max Retries Reached",
-      message: `Item ${item.id} has failed upscaling after ${attempts} attempts.\nLast error: ${error}`,
+      subject: `${errorType === "upscaling" ? "Upscaling" : "Download"} Failed - Max Retries Reached`,
+      message: `Item ${item.id} has failed ${errorType} after ${attempts} attempts.
+Original Image: ${item.originalImageUrl}
+Process ID: ${item.topazProcessId}
+Last error: ${error}
+
+Please check the Topaz dashboard for more details.`,
       severity: "high",
     });
   } else {
