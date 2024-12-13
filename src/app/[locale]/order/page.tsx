@@ -1,13 +1,11 @@
 'use client';
 
-import { useTranslations } from "next-intl";
 import { trpc } from "@/utils/trpc";
 import { useRouter, useParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { OrderSummary, OrderError } from "./_components";
 
 export default function OrderPage() {
-  const t = useTranslations("order");
   const router = useRouter();
   const params = useParams<{ locale: string }>();
 
@@ -39,7 +37,7 @@ export default function OrderPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <OrderSummary order={order} showActions={false} />
+      <OrderSummary order={order as any} showActions={false} />
     </div>
   );
 }
