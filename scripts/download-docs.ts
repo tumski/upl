@@ -3,8 +3,9 @@ import TurndownService from "turndown";
 import fs from "fs/promises";
 import path from "path";
 
+type DocUrl = string | { url: string; filename?: string };
 type DocSource = {
-  urls: string[] | { rootUrl: string; recursive: boolean };
+  urls: DocUrl[] | { rootUrl: string; recursive: boolean };
 };
 
 const docSources: Record<string, DocSource> = {
@@ -15,7 +16,7 @@ const docSources: Record<string, DocSource> = {
   },
   nextjs: {
     urls: [
-      "https://nextjs.org/docs/pages/building-your-application/authentication",
+      {"url": "https://nextjs.org/docs/pages/building-your-application/authentication", "filename": "authentication"},
     ],
   },
   "next-intl": {
@@ -35,20 +36,11 @@ const docSources: Record<string, DocSource> = {
       "https://orm.drizzle.team/docs/kit-overview",
     ],
   },
-  // stripe times out, probably secured for scraping
-  // stripe: {
-  //   urls: [
-  //     "https://docs.stripe.com/payments/checkout/how-checkout-works",
-  //     "https://docs.stripe.com/api",
-  //   ],
-  // },
-  // TODO: handle navigation better
-  // "react-query": {
-  //   urls: {
-  //     rootUrl: "https://tanstack.com/query/latest/docs/framework/react/overview",
-  //     recursive: true,
-  //   },
-  // },
+  stripe: {
+    urls: [
+      { url: "https://docs.stripe.com/api", filename: "api-reference" },
+    ],
+  },
 };
 
 const toKebabCase = (str: string) =>
@@ -57,29 +49,50 @@ const toKebabCase = (str: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-async function getNavigationUrls(page: puppeteer.Page): Promise<string[]> {
-  // Adjust selectors based on the site's navigation structure
-  const urls = await page.$$eval("nav a", links =>
-    links.map(link => link.href).filter(href => href.includes("/docs/"))
-  );
-  return [...new Set(urls)]; // Remove duplicates
-}
-
 async function scrapeToMarkdown(url: string) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
   const page = await browser.newPage();
   const turndown = new TurndownService();
 
   try {
-    await page.goto(url, { waitUntil: "networkidle0" });
-    await page.waitForSelector("main");
+    // Increase timeouts and add better error handling
+    await page.setDefaultNavigationTimeout(60000); // 60 seconds
+    await page.setDefaultTimeout(60000);
 
-    const mainContent = await page.$eval("main", main => main.innerHTML);
-    const title =
-      (await page.$eval("main h1, h1", h1 => h1.textContent || "")) ||
-      (await page.$eval('nav a[aria-current="page"]', nav => nav.textContent || "")) ||
-      new URL(url).pathname.split("/").pop() ||
-      "index";
+    // Navigate with more lenient wait condition
+    await page.goto(url, { 
+      waitUntil: ["load", "domcontentloaded", "networkidle2"],
+      timeout: 60000
+    });
+
+    // Wait for main content with timeout and retry logic
+    const mainSelector = "main";
+    let retries = 3;
+    let mainContent = "";
+    
+    while (retries > 0) {
+      try {
+        await page.waitForSelector(mainSelector, { timeout: 20000 });
+        mainContent = await page.$eval(mainSelector, main => main.innerHTML);
+        break;
+      } catch (error) {
+        console.log(`Retry ${4 - retries} for ${url}`);
+        retries--;
+        if (retries === 0) throw error;
+        await page.reload({ waitUntil: ["load", "domcontentloaded", "networkidle2"] });
+      }
+    }
+
+    // Get title with fallbacks
+    const title = await page.evaluate(() => {
+      const mainH1 = document.querySelector("main h1")?.textContent;
+      const h1 = document.querySelector("h1")?.textContent;
+      const navCurrent = document.querySelector('nav a[aria-current="page"]')?.textContent;
+      return mainH1 || h1 || navCurrent || "";
+    }) || new URL(url).pathname.split("/").pop() || "index";
 
     const markdown = turndown.turndown(mainContent);
     return { markdown, title };
@@ -93,28 +106,28 @@ async function processAllDocs() {
     const folderPath = path.join("docs", prefix);
     await fs.mkdir(folderPath, { recursive: true });
 
-    let urlsToProcess: string[] = [];
+    let urlsToProcess: DocUrl[] = [];
 
     if (Array.isArray(source.urls)) {
       urlsToProcess = source.urls;
-    } else {
-      // Handle recursive navigation
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
-      await page.goto(source.urls.rootUrl, { waitUntil: "networkidle0" });
-      urlsToProcess = await getNavigationUrls(page);
-      await browser.close();
     }
 
-    for (const url of urlsToProcess) {
+    for (const urlConfig of urlsToProcess) {
       try {
+        const url = typeof urlConfig === "string" ? urlConfig : urlConfig.url;
         const { markdown, title } = await scrapeToMarkdown(url);
-        const filename = `${toKebabCase(title.trim())}.md`;
+        
+        // Use custom filename if provided, otherwise generate from title
+        const filename = typeof urlConfig === "string" 
+          ? `${toKebabCase(title.trim())}.md`
+          : `${urlConfig.filename || toKebabCase(title.trim())}.md`;
+        
         const filePath = path.join(folderPath, filename);
         await fs.writeFile(filePath, markdown);
         console.log(`✓ Saved ${filePath}`);
       } catch (error) {
-        console.error(`✗ Failed to process ${url}:`, error);
+        const errorUrl = typeof urlConfig === "string" ? urlConfig : urlConfig.url;
+        console.error(`✗ Failed to process ${errorUrl}:`, error);
       }
     }
   }
